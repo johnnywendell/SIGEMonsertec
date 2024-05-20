@@ -1,0 +1,297 @@
+{%extends 'base.html'%}
+
+{%block title%}{{title_complete|title}}{%endblock%}
+{%block content%}
+<section class="content">
+  <div class="container-fluid">
+
+    {% include 'title_header.html' %}
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="card">
+
+          <!--Header-->
+          <div class="header">
+
+            <h2>
+              <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a>{{title_complete}}
+            </h2>
+            <div><small>Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.</small></div>
+
+          </div>
+          <!--# Header-->
+
+          <form id="addpessoa_form" role="form" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Body-->
+            <div class="body">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                {% include 'pessoa_tab_list.html' %}
+
+                <div class="tab-content">
+                  <!-- Tab informacoes gerais -->
+                  <div role="tabpanel" class="tab-pane active" id="tab_inf_gerais">
+                    {{object}}
+                    
+                    {% if tipo_pessoa == 'empresa' %}
+
+                    {% include 'empresa/empresa_tab_inf_gerais.html' %}
+
+                    {% elif tipo_pessoa == 'romaneio' %}
+              
+                    {% include 'cabine_jato/romaneio_tab_inf_gerais.html' %}
+
+                    {% elif tipo_pessoa == 'relatorioarea' or tipo_pessoa == 'relatoriojato' %}
+              
+                    {% include 'relatorio_area/relatorioarea_tab_inf_gerais.html' %}
+
+                    {% elif tipo_pessoa == 'aprovador' %}
+                
+                    {% include 'geral/aprovador_tab.html' %}
+
+                    {% elif tipo_pessoa == 'rdo' %}
+                
+                    {% include 'rdos/rdo_tab_inf_gerais.html' %}
+
+                  {% endif %}
+
+                  </div>
+                  <!-- #Tab informacoes gerais -->
+
+
+                  <!-- Tab Material -->
+                  {% if tipo_pessoa == 'romaneio' %}
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_material">
+                    
+                    {% include 'formset/formset_table.html' with formset=material_form title='Materiais' %}
+                    
+                  </div>
+                  {% endif %}
+                  <!-- #Tab Material -->
+
+                  <!-- Tab Relatorio -->
+                  {% if tipo_pessoa == 'relatorioarea' or tipo_pessoa == 'relatoriojato' %}
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_superficie">
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.tratamento.label}}</label>
+                          {% if form.tratamento.errors %}<label class="error">{% for error in form.tratamento.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.tratamento}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.inicio.label}}</label>
+                          {% if form.inicio.errors %}<label class="error">{% for error in form.inicio.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.inicio}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.termino.label}}</label>
+                          {% if form.termino.errors %}<label class="error">{% for error in form.termino.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.termino}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.tipo_subs.label}}</label>
+                          {% if form.tiposubs.errors %}<label class="error">{% for error in form.tipo_subs.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.tipo_subs}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.temp_ambiente.label}}</label>
+                          {% if form.temp_ambiente.errors %}<label class="error">{% for error in form.temp_ambiente.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.temp_ambiente}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.ura.label}}</label>
+                          {% if form.ura.errors %}<label class="error">{% for error in form.ura.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.ura}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.po.label}}</label>
+                          {% if form.po.errors %}<label class="error">{% for error in form.po.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.po}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.temp_super.label}}</label>
+                          {% if form.temp_super.errors %}<label class="error">{% for error in form.temp_super.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.temp_super}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.intemperismo.label}}</label>
+                          {% if form.intemperismo.errors %}<label class="error">{% for error in form.intemperismo.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.intemperismo}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.descontaminacao.label}}</label>
+                          {% if form.descontaminacao.errors %}<label class="error">{% for error in form.descontaminacao.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.descontaminacao}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.poeira_tam.label}}</label>
+                          {% if form.poeira_tam.errors %}<label class="error">{% for error in form.poeira_tam.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.poeira_tam}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.poeira_quant.label}}</label>
+                          {% if form.poeira_quant.errors %}<label class="error">{% for error in form.poeira_quant.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.poeira_quant}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.teor_sais.label}}</label>
+                          {% if form.teor_sais.errors %}<label class="error">{% for error in form.teor_sais.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.teor_sais}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.ambiente_pintura.label}}</label>
+                          {% if form.ambiente_pintura.errors %}<label class="error">{% for error in form.ambiente_pintura.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.ambiente_pintura}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <div class="form-line">
+                          <label>{{form.rugosidade.label}}</label>
+                          {% if form.rugosidade.errors %}<label class="error">{% for error in form.rugosidade.errors %}{{error}}{% endfor %}</label>{% endif %}
+                          {{form.rugosidade}}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                  </div>
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_etapas">
+                 
+                    {% include 'formset/formset_table.html' with formset=etapa_form title='Etapas de Pintura' %}
+                    
+                  </div>
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_fotos">
+
+                  </div>
+                  
+                  {% endif %}
+                  <!-- #Tab Relatorio -->
+                  {% if tipo_pessoa == 'relatoriojato' %}
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_materiais">
+
+                  </div>
+                  {% endif %}
+
+                  {% if tipo_pessoa == 'empresa' %}
+                  <!-- Tab contato -->
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_contato">
+                    {% for formset in formsets %}
+                    {% include 'formset/formset_fields.html' %}
+                    {% endfor %}
+
+                  </div>
+                  {% endif %}
+                  <!-- #Tab contato -->
+                  {% if tipo_pessoa == 'rdo' %}
+                  <!-- Tab itensmedicao -->
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_itemmedicao">
+     
+                    {% include 'formset/formset_table.html' with formset=item_form title='Itens medicao' %}
+
+                  </div>
+                  {% endif %}
+                  <!-- #Tab contato -->
+                  
+
+                </div>
+
+              </div>
+              <button class="btn btn-success foot-btn" type="submit"><i class="material-icons">&#xE148;</i><span> SALVAR</span></button>
+            </div>
+            <!--#Body-->
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+{%endblock%}
+
+{% block js %}
+
+  {% if tipo_pessoa == 'empresa' %}
+
+  {% include 'empresa/empresa_blockjs.html' %}
+
+  {% elif tipo_pessoa == 'romaneio' %}
+
+  {% include 'cabine_jato/romaneio_blockjs.html' %}
+
+  {% elif tipo_pessoa == 'relatorioarea' or tipo_pessoa == 'relatoriojato' %}
+
+  {% include 'relatorio_area/relatorio_blockjs.html' %}
+
+  {% elif tipo_pessoa == 'aprovador' %}
+
+  {% include 'geral/geral_blockjs.html' %}
+
+  {% elif tipo_pessoa == 'rdo' %}
+
+  {% include 'rdos/rdo_blockjs.html' %}
+
+  {% endif %}
+
+  {% include 'pessoa_blockjs.html' %}
+  
+{% endblock %}

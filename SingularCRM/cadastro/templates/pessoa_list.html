@@ -1,0 +1,55 @@
+{%extends 'base.html'%}
+
+{%block title%}{{title_complete|title}}{%endblock%}
+{%block content%}
+<section class="content">
+  <div class="container-fluid lista">
+  
+    {% include 'title_header.html' %}
+    
+    {% include 'msg_sucesso.html' %}
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lista-content">
+      <div class="card">
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="header">
+            <h2>
+              {{title_complete}}
+            </h2>
+              <div class="header-btn">
+                <a href="{{add_url}}" class="btn btn-success"><i class="material-icons">&#xE148;</i><span> ADICIONAR</span></a>
+                <button class="btn btn-red btn-remove"><i class="material-icons">&#xE872;</i></button>
+              </div>
+          </div>
+
+          <div class="body">
+
+           {% include 'search.html' %}
+
+           {% if tipo_pessoa == 'empresa' %}
+           {% include 'empresa/empresa_list_table.html' %}
+           {% elif tipo_pessoa == 'romaneio' %}
+           {% include 'cabine_jato/romaneio_list.html' %}
+           {% elif tipo_pessoa == 'relatorioarea' or tipo_pessoa == 'relatoriojato' %}
+           {% include 'relatorio_area/relatorioarea_list.html' %}
+           {% elif tipo_pessoa == 'aprovador' %}
+           {% include 'geral/aprovador_list.html' %}
+           {% elif tipo_pessoa == 'rdo' %}
+           {% include 'rdos/rdo_list.html' %}
+           {% else %}
+           Nenhum registro encontrado
+           {% endif %}
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+{%endblock%}

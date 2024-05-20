@@ -1,0 +1,25 @@
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.aprovador.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.aprovador.errors %}<label class="error">{% for error in form.aprovador.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.aprovador}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.contrato.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.contrato.errors %}<label class="error">{% for error in form.contrato.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.contrato}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-6">
+{% include 'formset/formset_fields_sem_padrao.html' with formset=etapa_aprovacao_form title='Etapasdocs' %}
+</div>
+
+
+

@@ -1,0 +1,38 @@
+
+<div class="table-responsive">
+  <table id="lista-database" class="table table-bordered table-striped lista-table">
+    <thead>
+      <tr>                  
+        <th>Nº Romaneio</th>
+        <th>Data Entrada</th>
+        <th>Documento Referência</th>
+        <th>Área</th>
+        <th>Solicitante</th>
+        <th>Remover</th>
+      </tr>
+    </thead>
+
+    <tbody>
+     {% if all_romaneios %}
+     {% for romaneio in all_romaneios %}
+     <tr class="clickable-row" data-href="{% url 'canteirojato:editarromaneioview' romaneio.id %}">
+      <td>{{romaneio}}</td>
+      <td>{{romaneio.entrada}}</td>
+      <td>{{romaneio.documento}}</td>
+      <td>{{romaneio.area}}</td>
+      <td>{{romaneio.solicitante}}</td>
+      <td class="lista-remove">
+        <input type="checkbox" name="{{romaneio.id}}" id="remover-entrada-{{romaneio.id}}"/>
+        <label class="remove-entry-label" for="remover-entrada-{{romaneio.id}}"></label>
+      </td>
+    </tr>
+    {% endfor %}
+    {%else%}
+    {%endif%}
+  </tbody>
+</table>
+</div>
+
+<script>
+  setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+</script>

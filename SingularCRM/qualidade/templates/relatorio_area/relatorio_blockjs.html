@@ -1,0 +1,17 @@
+{% block js %}
+    
+  {% load static %}
+  <!-- JQuery Mask Input Js -->
+  <script src="{% static 'js/jquery.mask.js' %}"></script>
+
+  {% include 'load_jqueryui.html' %}
+
+
+
+  {% include 'tooltip_js.html' %}
+
+  <script type="text/javascript">
+    $.Admin.maskInput.maskLancamento();
+  </script>
+
+{% endblock %}

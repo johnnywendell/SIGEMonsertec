@@ -1,0 +1,59 @@
+
+<div class="table-responsive">
+  <table id="lista-database" class="table table-bordered table-striped lista-table">
+    <thead>
+      <tr>                  
+        <th>Nº Relatório</th>
+        <th>Cliente</th>
+        <th>Rec/PJ/OM</th>
+        <th>Unidade/Planta</th>
+        <th>Fiscal</th>
+        <th>Remover</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% if tipo_pessoa == 'relatorioarea' %}
+     {% if all_relatorios_area %}
+     {% for relatorio in all_relatorios_area %}
+     <tr class="clickable-row" data-href="{% url 'qualidade:editarrelatorioareaview' relatorio.id %}">
+      <td>{{relatorio}}</td>
+      <td>{{ relatorio.cliente }}</td>
+      <td>{{ relatorio.rec }}</td>
+      <td>{{ relatorio.unidade }}</td>
+      <td>{{ relatorio.fiscal }}</td>
+      <td class="lista-remove">
+        <input type="checkbox" name="{{relatorio.id}}" id="remover-entrada-{{relatorio.id}}"/>
+        <label class="remove-entry-label" for="remover-entrada-{{relatorio.id}}"></label>
+      </td>
+    </tr>
+    {% endfor %}
+    {%else%}
+    {%endif%}
+    {% elif tipo_pessoa == 'relatoriojato' %}
+    {% if all_relatorios_area %}
+     {% for relatorio in all_relatorios_area %}
+     <tr class="clickable-row" data-href="{% url 'qualidade:editarrelatoriojatoview' relatorio.id %}">
+      <td>{{relatorio}}</td>
+      <td>{{ relatorio.cliente }}</td>
+      <td>{{ relatorio.rec }}</td>
+      <td>{{ relatorio.unidade }}</td>
+      <td>{{ relatorio.fiscal }}</td>
+      <td class="lista-remove">
+        <input type="checkbox" name="{{relatorio.id}}" id="remover-entrada-{{relatorio.id}}"/>
+        <label class="remove-entry-label" for="remover-entrada-{{relatorio.id}}"></label>
+      </td>
+    </tr>
+    {% endfor %}
+    {%else%}
+    {%endif%}
+
+
+    {%endif%}
+  </tbody>
+</table>
+</div>
+
+<script>
+  setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+</script>

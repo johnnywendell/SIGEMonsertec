@@ -1,0 +1,34 @@
+
+<div class="table-responsive">
+  <table id="lista-database" class="table table-bordered table-striped lista-table">
+    <thead>
+      <tr>                  
+        <th>#ID</th>
+        <th>Aprovador</th>
+        <th>Contrato</th>
+        <th>Remover</th>
+      </tr>
+    </thead>
+
+    <tbody>
+     {% if all_aprovadors %}
+     {% for aprovador in all_aprovadors %}
+     <tr class="clickable-row" data-href="{% url 'cadastro:editaraprovadorview' aprovador.id %}">
+      <td>{{aprovador.id}}</td>
+      <td>{{aprovador.aprovador}}</td>
+      <td>{{aprovador.contrato}}</td>
+      <td class="lista-remove">
+        <input type="checkbox" name="{{aprovador.id}}" id="remover-entrada-{{aprovador.id}}"/>
+        <label class="remove-entry-label" for="remover-entrada-{{aprovador.id}}"></label>
+      </td>
+    </tr>
+    {% endfor %}
+    {%else%}
+    {%endif%}
+  </tbody>
+</table>
+</div>
+
+<script>
+  setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+</script>

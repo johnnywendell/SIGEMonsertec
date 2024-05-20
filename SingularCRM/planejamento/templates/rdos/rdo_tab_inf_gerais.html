@@ -1,0 +1,173 @@
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.data.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.data.errors %}<label class="error">{% for error in form.data.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.data}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.contrato.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.contrato.errors %}<label class="error">{% for error in form.contrato.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.contrato}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.unidade.label}}</label>
+      {% if form.unidade.errors %}<label class="error">{% for error in form.unidade.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.unidade}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.solicitante.label}}</label>
+      {% if form.solicitante.errors %}<label class="error">{% for error in form.solicitante.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.solicitante}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.tipo.label}}</label>
+      {% if form.tipo.errors %}<label class="error">{% for error in form.tipo.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.tipo}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.disciplina.label}}</label>
+      {% if form.disciplina.errors %}<label class="error">{% for error in form.disciplina.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.disciplina}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.AS.label}}</label>
+      {% if form.AS.errors %}<label class="error">{% for error in form.AS.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.AS}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.projeto_cod.label}}</label>
+      {% if form.projeto_cod.errors %}<label class="error">{% for error in form.projeto_cod.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.projeto_cod}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.clima.label}}</label>
+      {% if form.clima.errors %}<label class="error">{% for error in form.clima.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.clima}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.escopo.label}}</label>
+      {% if form.escopo.errors %}<label class="error">{% for error in form.escopo.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.escopo}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.local.label}}</label>
+      {% if form.local.errors %}<label class="error">{% for error in form.local.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.local}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.obs.label}}</label>
+      {% if form.obs.errors %}<label class="error">{% for error in form.obs.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.obs}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-11">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.doc.label}}</label>
+      {% if form.doc.errors %}<label class="error">{% for error in form.doc.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.doc}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.inicio.label}}</label>
+      {% if form.inicio.errors %}<label class="error">{% for error in form.inicio.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.inicio}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.termino.label}}</label>
+      {% if form.termino.errors %}<label class="error">{% for error in form.termino.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.termino}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.inicio_pt.label}}</label>
+      {% if form.inicio_pt.errors %}<label class="error">{% for error in form.inicio_pt.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.inicio_pt}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.termino_pt.label}}</label>
+      {% if form.termino_pt.errors %}<label class="error">{% for error in form.termino_pt.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.termino_pt}}
+    </div>
+  </div>
+</div>
+
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      {{form.aprovado}}
+      <label for="id_aprovado" style="font-weight: bold;" title="Conclusão do romaneio">{{form.aprovado.label}}</label>
+    </div>
+  </div>
+</div>

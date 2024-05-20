@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+
+{%block title%}Solicitante{%endblock%}
+{%block content%}
+<section class="content">
+  <div class="container-fluid lista">
+  
+    <div class="title-header">
+      <h2>Solicitantes</h2>
+    </div>
+    
+    {% include 'msg_sucesso.html' %}
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lista-content">
+      <div class="card">
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="header">
+            <h2>
+              SOLICITANTES/FISCAIS CADASTRADOS
+            </h2>
+              <div class="header-btn">
+                <a href="{% url 'cadastro:addsolicitanteview' %}" class="btn btn-success popup" title="Adicionar solicitante"><i class="material-icons">&#xE148;</i><span> ADICIONAR</span></a>
+                <button class="btn btn-red btn-remove"><i class="material-icons">&#xE872;</i></button>
+              </div>
+          </div>
+
+          <div class="body">
+
+           {% include 'search.html' %}
+
+           <div class="table-responsive">
+            <table id="lista-database" class="table table-bordered table-striped lista-table">
+              <thead>
+                <tr>
+                  <th>#ID</th>                   
+                  <th>Descrição</th>
+                  <th>Contrato</th>
+                  <th>Remover</th>
+                </tr>
+              </thead>
+
+              <tbody>
+               {% if all_solicitantes %}
+               {% for solicitante in all_solicitantes %}
+               <tr class="clickable-row popup" href="{% url 'cadastro:editarsolicitanteview' solicitante.id %}">
+                <td>{{solicitante.id}}</td>
+                <td>{{solicitante}}</td>
+                <td>{{solicitante.contrato}}</td>
+                <td class="lista-remove">
+                  <input type="checkbox" name="{{solicitante.id}}" id="remover-entrada-{{solicitante.id}}"/>
+                  <label class="remove-entry-label" for="remover-entrada-{{solicitante.id}}"></label>
+                </td>
+              </tr>
+              {% endfor %}
+              {%else%}
+              {%endif%}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+</div>
+</section>
+
+
+{%endblock%}

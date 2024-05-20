@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+
+{%block title%}Contrato{%endblock%}
+{%block content%}
+<section class="content">
+  <div class="container-fluid lista">
+  
+    <div class="title-header">
+      <h2>Contratos</h2>
+    </div>
+    
+    {% include 'msg_sucesso.html' %}
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lista-content">
+      <div class="card">
+   
+          <div class="header">
+            <h2>
+              IMPORTAR {{ title_import }}
+            </h2>
+              <div class="header-btn">
+               
+              </div>
+          </div>
+
+          <div class="body">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input name="myfile" type="file" />
+                <button type="submit" class="btn btn-success">Upload</button>
+              </form>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+</div>
+</section>
+
+
+{%endblock%}

@@ -1,0 +1,221 @@
+
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.cliente.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.cliente.errors %}<label class="error">{% for error in form.cliente.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.cliente}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.data.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.data.errors %}<label class="error">{% for error in form.data.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.data}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.rec.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.rec.errors %}<label class="error">{% for error in form.rec.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.rec}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.nota.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.nota.errors %}<label class="error">{% for error in form.nota.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.nota}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.tipo_serv.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.tipo_serv.errors %}<label class="error">{% for error in form.tipo_serv.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.tipo_serv}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.unidade.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.unidade.errors %}<label class="error">{% for error in form.unidade.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.unidade}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.setor.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.setor.errors %}<label class="error">{% for error in form.setor.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.setor}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.corrosividade.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.corrosividade.errors %}<label class="error">{% for error in form.corrosividade.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.corrosividade}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.fiscal.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.fiscal.errors %}<label class="error">{% for error in form.fiscal.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.fiscal}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.inspetor.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.inspetor.errors %}<label class="error">{% for error in form.inspetor.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.inspetor}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.tag.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.tag.errors %}<label class="error">{% for error in form.tag.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.tag}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.obs_inst.label}}</label>
+      {% if form.obs_inst.errors %}<label class="error">{% for error in form.obs_inst.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.obs_inst}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.obs_final.label}}</label>
+      {% if form.obs_final.errors %}<label class="error">{% for error in form.obs_final.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.obs_final}}
+    </div>
+  </div>
+</div>
+
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      {{form.laudo}}
+      <label for="id_laudo" style="font-weight: bold;" title="Conclusão do romaneio">{{form.laudo.label}}</label>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      {{form.aprovado}}
+      <label for="id_aprovado" style="font-weight: bold;" title="Conclusão do romaneio">{{form.aprovado.label}}</label>
+    </div>
+  </div>
+</div>
+
+<br>
+{% if tipo_pessoa == 'relatorioarea' %}
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label title="Todos pontos de contato foram instalados calha tipo Utec?">{{form.calha_utec.label}}</label>
+      {% if form.calha_utec.errors %}<label class="error">{% for error in form.calha_utec.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.calha_utec}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label title="Foram pintados os guias e os pontos de contatos da tubulação??">{{form.guia_pc.label}}</label>
+      {% if form.guia_pc.errors %}<label class="error">{% for error in form.guia_pc.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.guia_pc}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label title="Aplicado fita de proteção nos pontos com grampos de fixação?">{{form.fita_protec.label}}</label>
+      {% if form.fita_protec.errors %}<label class="error">{% for error in form.fita_protec.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.fita_protec}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label title="Foi pintado todos trechos recomendados da REC?">{{form.trecho_rec.label}}</label>
+      {% if form.trecho_rec.errors %}<label class="error">{% for error in form.trecho_rec.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.trecho_rec}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label title="Foi Aplicado elastômero nos acessórios?">{{form.elastomero.label}}</label>
+      {% if form.elastomero.errors %}<label class="error">{% for error in form.elastomero.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.elastomero}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-1">
+  <div class="form-group">
+    <div class="form-line">
+      <label title="Foram pintados todos os volantes e caps?">{{form.volante_caps.label}}</label>
+      {% if form.volante_caps.errors %}<label class="error">{% for error in form.volante_caps.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.volante_caps}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-1">
+  <div class="form-group">
+    <div class="form-line">
+      <label title="Foram pintados todos os volantes e caps?">{{form.m2.label}}</label>
+      {% if form.m2.errors %}<label class="error">{% for error in form.m2.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.m2}}
+    </div>
+  </div>
+</div>
+
+{% endif %}

@@ -1,0 +1,83 @@
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.entrada.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.entrada.errors %}<label class="error">{% for error in form.entrada.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.entrada}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.nf.label}}</label>
+      {% if form.nf.errors %}<label class="error">{% for error in form.nf.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.nf}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.area.label}}</label>
+      {% if form.area.errors %}<label class="error">{% for error in form.area.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.area}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.solicitante.label}}</label>
+      {% if form.solicitante.errors %}<label class="error">{% for error in form.solicitante.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.solicitante}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.documento.label}}</label>
+      {% if form.documento.errors %}<label class="error">{% for error in form.documento.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.documento}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.obs.label}}</label>
+      {% if form.obs.errors %}<label class="error">{% for error in form.obs.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.obs}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      {{form.concluido}}
+      <label for="id_concluido" style="font-weight: bold;" title="Conclusão do romaneio">{{form.concluido.label}}</label>
+    </div>
+  </div>
+</div>
+{% if link %}
+{% load qr_code %}
+
+<div class="col-sm-6 text-center">
+  <div class="form-group">
+    <div class="form-line">
+   
+      {% qr_from_text link size="s" %}
+      <br>
+      <label><a href="{% url 'canteirojato:romaneio_qrcode' object.id %}">QR CODE</a> - <a href="{% url 'canteirojato:romaneio_pdf' object.id %}">DOC PDF</a></label>
+    </div>
+  </div>
+</div>
+{% endif %}

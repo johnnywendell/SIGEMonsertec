@@ -1,0 +1,77 @@
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Material</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="POST" action="{% url 'qualidade:atualizar_materiais' %}" novalidate> 
+            {% csrf_token %}
+          <div class="modal-body">
+            {% include 'search.html' %}
+            <input hidden type="text" name="valores_materiais" id="valores_materiais">
+            <input hidden type="text" value="{{object.id}}" name="valores_id" id="valores_id">
+            <div class="table-responsive">
+              <table id="lista-database" class="table table-bordered table-striped lista-table">
+                <thead>
+                  <tr>                  
+                    <th>Nº Romaneio</th>
+                    <th>TF</th>
+                    <th>TI</th>
+                    <th>TA</th>
+                    <th>Material</th>
+                    <th>Descricao</th>
+                    <th>M2</th>
+                    <th>BOX</th>
+                  </tr>
+                </thead>
+            
+                <tbody>
+                  {% if materiais_sem_relatorio %}
+                 {% for material in materiais_sem_relatorio %}
+                 <tr class="clickable-row" data-href="#">
+                  <td>{{ material.n_romaneio }}</td>
+                  <td>{{ material.tf }}</td>
+                  <td>{{ material.ti }}</td>
+                  <td>{{ material.ta }}</td>
+                  <td>{{ material.material }}</td>
+                  <td>{{ material.descricao }}</td>
+                  <td>{{ material.m2 }}</td>
+                  <td class="lista-remove">
+                    <input type="checkbox" value="{{material.id}}" name="{{material.id}}" id="remover-entrada-{{material.id}}"/>
+                    <label class="add-entry-label" for="remover-entrada-{{material.id}}"></label>
+                  </td>
+                </tr>
+                {% endfor %}
+                {%endif%}
+              </tbody>
+            </table>
+            </div>
+          
+              
+          </div>
+          <div class="modal-footer">
+            
+            <button class="btn btn-success" type="submit" id="atualizar-materiais-btn">Adicionar Materiais</button>
+            
+          </div>
+        </form>
+      
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  $(document).on('change', '.clickable-row', function(){
+      var txt ="";
+      $('.delete-row input[type="checkbox"]').each(function(){
+        txt += $(this).val()+"," ;
+        txt = txt.replace('.','')
+           });
+      $('#valores_materiais').val(txt);
+  });
+
+</script>

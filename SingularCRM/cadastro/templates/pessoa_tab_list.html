@@ -1,0 +1,19 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#tab_inf_gerais" data-toggle="tab">INFORMAÇÕES GERAIS</a></li>
+  {% if tipo_pessoa == 'empresa' %}
+  <li role="presentation"><a href="#tab_contato" data-toggle="tab">CONTATO</a></li>
+  {% elif tipo_pessoa == 'romaneio'%}
+  <li role="presentation"><a href="#tab_material" data-toggle="tab">MATERIAIS</a></li>
+  {% elif tipo_pessoa == 'relatorioarea' %}
+  <li role="presentation"><a href="#tab_superficie" data-toggle="tab">PREPARAÇÃO DA SUPERFÍCIE</a></li>
+  <li role="presentation"><a href="#tab_etapas" data-toggle="tab">ETAPAS PINTURA</a></li>
+  <li role="presentation"><a href="#tab_fotos" data-toggle="tab">REGISTRO FOTOGRÁFICO</a></li>
+  {% elif tipo_pessoa == 'relatoriojato' %}
+  <li role="presentation"><a href="#tab_superficie" data-toggle="tab">PREPARAÇÃO DA SUPERFÍCIE</a></li>
+  <li role="presentation"><a href="#tab_etapas" data-toggle="tab">ETAPAS PINTURA</a></li>
+  <li role="presentation"><a href="#tab_fotos" data-toggle="tab">REGISTRO FOTOGRÁFICO</a></li>
+  <li role="presentation"><a href="#tab_materiais" data-toggle="tab">MATERIAIS</a></li>
+  {% elif tipo_pessoa == 'rdo' %}
+  <li role="presentation"><a href="#tab_itemmedicao" data-toggle="tab">ITENS MEDIÇÃO</a></li>
+  {% endif %}
+</ul>

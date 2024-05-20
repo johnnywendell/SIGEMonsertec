@@ -1,0 +1,152 @@
+
+<html>
+    <head>
+        <style>
+            @page {
+                size: letter portrait;
+                @frame header_frame {           /* Static frame */
+                    -pdf-frame-content: header_content;
+                    left: 50pt; width: 512pt; top: 10pt; height: 280pt;
+                }
+                @frame col1_frame {             /* Content frame 1 */
+                    left: 40pt; width: 512pt; top: 280pt; height: 320pt;
+                }
+                @frame footer2_frame {           /* Static frame */
+                    -pdf-frame-content: footer_content2;
+                    left: 50pt; width: 512pt; top: 600pt; height: 100pt;
+                }  
+                @frame footer2_frame2 {           /* Static frame */
+                    -pdf-frame-content: footer2_content2;
+                    left: 50pt; width: 512pt; top: 700pt; height: 100pt;
+                }                  
+            }
+
+        </style>
+    </head>
+
+   <body>
+    
+    <div id="header_content">
+ 
+     <table>
+            <td><img src="media/imagens/logo.png" alt="blah"></td>
+            
+            <th><h1>Relatório de Inspeção (Simplificado)</h1></th>
+            
+            <th></th>
+        </table>
+   <hr style="margin-top: 0px;">
+       <table style="margin: 0px;">
+       
+                    <th class="text-right">Cliente</th>
+                    <td> {{ object.cliente }}</td>
+                    <th class="text-right">Data</th>
+                    <td>{% if object.get_data %}{{ object.get_data }}{% else %}{% endif %}</td>
+                    <th class="text-right">Contrato</th>
+                    <td>{{ object.unidade.contrato }}</td>
+                    <th class="text-right">Cod.</th>
+                    <td>FRM-OBRA-061</td>
+        </table>
+        <hr style="margin-top: 1px;">        
+        <table>
+                    <th class="text-right">N.º RIP</th>
+                    <td>{{ object }}</td>
+                    <th class="text-right">Procedimento</th>
+                    <td> PNE-00-00095 </td>
+                    <th class="text-right">Documento Ref.</th>
+                    <td>{{ object.rec }}</td>
+                    <th class="text-right">Nota</th>
+                    <td>{{ object.nota }}</td>  
+        </table>
+        <hr style="margin-top: 1px;">
+        <table>
+                    <th class="text-right">N.º RIP</th>
+                    <td> {{ object }} </td>
+                    <th class="text-right">Solicitante</th>
+                    <td>{{ object.fiscal }}</td>
+                    <th class="text-right">Inspetor</th>
+                    <td>{{ object.inspetor }}</td>
+                    <th class="text-right">Aprovado?</th>
+                    <td>{% if object.aprovado %}✔{% else %}{% endif %}</td>
+        </table>
+        <table border="0.5" style="padding-top: 1.8px;">
+                <tr>
+                    <th class="text-left">Tipo de serviço</th>
+                    <td style="padding-top: 3px;padding-left: 2px;"> {{ object.tipo_serv }} </td>
+                </tr>
+                    <th class="text-left">Sistema de pintura aplicado</th>
+                    <td style="padding-top: 3px;padding-left: 2px;"> {{ object.tratamento }}{% for obj in object.relatorios.all %}-{{obj}}{% endfor %}</td>
+                <tr>
+                    <th class="text-left">Cor final</th>
+                    <td style="padding-top: 3px;padding-left: 2px;"> {{ cor }} </td>
+                </tr>
+                    <th class="text-left">Tipo de substrato</th>
+                    <td style="padding-top: 3px;padding-left: 2px;"> {{ object.tipo_subs }} {{ ambiente }} </td>
+                <tr>
+                    <th class="text-left">Espessura total</th>
+                    <td style="padding-top: 3px;padding-left: 2px;">{{ espessura_total }} </td>
+                </tr>
+                <tr>
+                    <th class="text-left">Aderência do esquema</th>
+                    <td style="padding-top: 3px;padding-left: 2px;">{{ aderencia }}</td>
+                </tr>
+                <tr>
+                    <th class="text-left">TAG</th>
+                    <td style="padding-top: 3px;padding-left: 2px;"> {{ object.tag }} </td>
+                </tr>
+                <tr>
+                    <th class="text-left">Código do setor</th>
+                    <td style="padding-top: 3px;padding-left: 2px;"> {{ object.unidade }}.{{ object.setor }}.{{ object.corrosividade }} </td>
+                </tr>
+                <tr>
+                    <th class="text-left">Responsável</th>
+                    <td style="padding-top: 3px;padding-left: 2px;"> {{ object.fiscal }} </td>
+                </tr>
+                <tr>
+                    <th class="text-left">Inspetor</th>
+                    <td style="padding-top: 3px;padding-left: 2px;"> {{ object.inspetor }} </td>
+                </tr>
+        </table>
+</div>   
+
+
+<div id="footer_content2">
+    <hr>       
+<table style="margin-bottom: 0px;padding-bottom: 0px;">
+        <th>Obs.</th>
+        </table>
+        <table>
+            <td>{{object.obs_final }}</td>
+            </table>
+        </div>
+        <div id="footer2_content2">
+    <table style="margin-bottom: 0px;padding-bottom: 0px;margin-top: 0px;">
+        <th>Inspeção</th>
+        <th>Fiscalização</th>
+        </table>
+    <hr style="margin-top: 0px;">
+<table>{% if ass %} 
+                    <th><img src="{{ ass.ass_insp }}"style="width:100px;" alt=""></th>
+           
+                    <th><img src="{{ ass.ass_fiscal }}" alt="" style="width:30px;"></th>
+                    {% endif  %}
+     
+            </table>
+
+    </div>
+
+    <h1 >imagens</h1>
+    <hr>
+    
+        <div style="text-align: center;">
+        {% for item in links %}
+        {% cycle ' ' '<br>' as space silent %}
+        <img src="{{ item }}" alt="" width="300px" style="max-height: 400px" >
+        {{ space }}
+        {% endfor %}
+        </div>
+
+    
+</body>
+    </html>
+  

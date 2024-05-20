@@ -1,0 +1,35 @@
+<a type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg"style="margin: 6px;"><b>+ </b> MATERIAIS</a>
+
+
+<div class="table-responsive">
+    <table id="lista-database" class="table table-bordered table-striped lista-table">
+      <thead>
+        <tr>                  
+          <th>Nº Romaneio</th>
+          <th>TF</th>
+          <th>TI</th>
+          <th>TA</th>
+          <th>Material</th>
+          <th>Descricao</th>
+          <th>M2</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        {% if materiais_do_relatorio %}
+       {% for material in materiais_do_relatorio %}
+       <tr class="clickable-row" data-href="#">
+        <td>{{ material.n_romaneio }}</td>
+        <td>{{ material.tf }}</td>
+        <td>{{ material.ti }}</td>
+        <td>{{ material.ta }}</td>
+        <td>{{ material.material }}</td>
+        <td>{{ material.descricao }}</td>
+        <td>{{ material.m2 }}</td>
+      </tr>
+      {% endfor %}
+      {%endif%}
+    </tbody>
+  </table>
+
+
