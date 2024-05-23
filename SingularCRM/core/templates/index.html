@@ -14,7 +14,7 @@
        <div class="header">
          <h2><i class="material-icons">&#xE85D;</i>RESUMO MêS</h2>
          <div>
-           <small>Valores totais do caixa mensal</small>
+           <small>Efetivo geral</small>
          </div>
        </div>
        <div class="body">
@@ -25,7 +25,7 @@
               <td> 
                 <a href="#">
                   <div style="height:100%;width:100%;">
-                    Valores recebidos <b>R$ {{quantidade_cadastro.entradas}}</b> 
+                    Presenças <b> {{quantidade_cadastro.entradas}}</b> 
                   </div>
                 </a>              
               </td>
@@ -36,7 +36,7 @@
               <td> 
                 <a href="#">
                   <div style="height:100%;width:100%;">
-                    Valores Pagos <b>R$ {{quantidade_cadastro.saidas}}</b> 
+                    Faltas <b> {{quantidade_cadastro.saidas}}</b> 
                   </div>
                 </a>              
               </td>
@@ -53,7 +53,7 @@
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
     <div class="card inicial-card">
      <div class="header">
-      <h2><i class="material-icons">&#xE8DF;</i>SAÍDAS DIA A DIA</h2>
+      <h2><i class="material-icons">&#xE8DF;</i>GRÁFICO</h2>
     </div>
     <div class="body">
       <div>
@@ -77,7 +77,7 @@
           <td> 
             <a href="#">
               <div style="height:100%;width:100%;">
-                <b>{{alertas.contas_receber_atrasadas}}</b> Contas a receber atrasadas
+                <b>{{alertas.contas_receber_atrasadas}}</b> Personalizar
               </div>
             </a>              
           </td>
@@ -86,7 +86,7 @@
           <td> 
             <a href="#">
               <div style="height:100%;width:100%;">
-                <b>{{alertas.contas_pagar_atrasadas}}</b> Contas a pagar atrasadas
+                <b>{{alertas.contas_pagar_atrasadas}}</b> Personalizar
               </div>
             </a>              
           </td>
@@ -108,10 +108,10 @@
     <div class="card">
       <div class="header">
         <h2>
-          FLUXO DE CAIXA<b style="padding-left:4px;">(DIA {{data_atual}})</b>
+          EFETIVO DO DIA<b style="padding-left:4px;">(DIA {{data_atual}})</b>
         </h2>
         <div class="header-btn">
-          <a href="{% url 'financeiro:fluxodecaixaview' %}" class="btn btn-primary"><i class="material-icons">&#xE8A0;</i><span> FLUXO DE CAIXA</span></a>
+          <a href="#" class="btn btn-primary"><i class="material-icons">&#xE8A0;</i><span> FLUXO DE CAIXA</span></a>
         </div>
       </div>
 
@@ -120,11 +120,11 @@
           <thead>
             <tr>
               <th>Data</th>
-              <th>Saldo inicial</th>
-              <th>Entradas</th>
-              <th>Saídas</th>
-              <th>Lucro/Prejuízo</th>
-              <th>Saldo final</th>
+              <th>Lançamentos</th>
+              <th>Presenças</th>
+              <th>Faltas</th>
+              <th>Férias</th>
+             
             </tr>
           </thead>
 
@@ -136,16 +136,16 @@
               <td>{{movimento_dia.entradas}}</td>
               <td>{{movimento_dia.saidas}}</td>
               <td {%if movimento_dia.valor_lucro_prejuizo < 0 %}style="background-color:#f1b1b1;font-weight:bold;"{% else %}style="background-color:#b3e5b3;font-weight:bold;"{% endif %}>{{movimento_dia.valor_lucro_prejuizo}}</td>
-              <td>{{movimento_dia.saldo_final}}</td>
+           
             </tr>
             {% else %}
             <tr>
               <td>{{data_atual}}</td>
               <td>{{saldo}}</td>
-              <td>0,00</td>
-              <td>0,00</td>
-              <td style="background-color:#b3e5b3;font-weight:bold;">0,00</td>
-              <td>{{saldo}}</td>
+              <td>0</td>
+              <td>0</td>
+              <td style="background-color:#b3e5b3;font-weight:bold;">0</td>
+        
             </tr>
             {% endif %}
           </tbody>

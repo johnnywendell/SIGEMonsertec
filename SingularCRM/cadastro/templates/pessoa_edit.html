@@ -24,10 +24,9 @@
             <div class="header-btn">
               <a class="btn btn-info" href="{% url 'qualidade:render_pdf_view' object.pk %}"style="margin: 6px;">PDF</a>
               <a class="btn btn-info" href="{% url 'qualidade:render_pdf_view_simple' object.pk %}"style="margin: 6px;">PDF SIMPLIFICADO</a>
-              
-              
-            </div>
-            
+            {% elif tipo_pessoa == 'apontamento' %} 
+              <a id="gerar_copia_apontamento" href="{% url 'efetivo:copiarapontamento' object.id %}" class="btn btn-primary">GERAR CÓPIA APONTAMENTO</a>
+         
             {% else %}
             {% endif %}
 
@@ -63,6 +62,14 @@
                     {% elif tipo_pessoa == 'aprovador' %}
                 
                     {% include 'geral/aprovador_tab.html' %}
+
+                    {% elif tipo_pessoa == 'rdo' %}
+                
+                    {% include 'rdos/rdo_tab_inf_gerais.html' %}
+
+                    {% elif tipo_pessoa == 'apontamento' %}
+      
+                    {% include 'efetivo/apontamento_tab_inf_gerais.html' %}
 
                     {% endif %}
 
@@ -310,6 +317,14 @@
 {% elif tipo_pessoa == 'aprovador' %}
 
 {% include 'geral/geral_blockjs.html' %}
+
+{% elif tipo_pessoa == 'rdo' %}
+
+{% include 'rdos/rdo_blockjs.html' %}
+
+{% elif tipo_pessoa == 'apontamento' %}
+
+{% include 'efetivo/apontamento_blockjs.html' %}
 
 {% endif %}
 

@@ -55,6 +55,10 @@
                 
                     {% include 'rdos/rdo_tab_inf_gerais.html' %}
 
+                    {% elif tipo_pessoa == 'apontamento' %}
+                
+                    {% include 'efetivo/apontamento_tab_inf_gerais.html' %}
+
                   {% endif %}
 
                   </div>
@@ -243,7 +247,7 @@
                   <!-- Tab itensmedicao -->
                   <div role="tabpanel" class="tab-pane formset-tab" id="tab_itemmedicao">
      
-                    {% include 'formset/formset_table.html' with formset=item_form title='Itens medicao' %}
+                   
 
                   </div>
                   {% endif %}
@@ -289,6 +293,10 @@
   {% elif tipo_pessoa == 'rdo' %}
 
   {% include 'rdos/rdo_blockjs.html' %}
+
+  {% elif tipo_pessoa == 'apontamento' %}
+
+  {% include 'efetivo/apontamento_blockjs.html' %}
 
   {% endif %}
 

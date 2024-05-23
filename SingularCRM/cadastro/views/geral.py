@@ -193,6 +193,7 @@ class ItemBmListView(CustomListView):
     context_object_name = 'all_itensmed'
     success_url = reverse_lazy('cadastro:listaitensmedview')
     permission_codename = 'view_itemmed'
+    paginate_by = 2000
 class EditarItemBmView(EditarOutrosBaseView):
     form_class = ItemBmForm
     model = ItemBm

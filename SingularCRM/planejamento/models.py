@@ -57,7 +57,7 @@ class AS(PlanejamentoModel):
     
 class RDO(PlanejamentoModel):
     AS = models.ForeignKey(AS, on_delete=models.SET_NULL, blank=True, null=True, related_name='ass',verbose_name='AS')
-    encarregado = models.CharField('Encarregado',max_length=40)
+    encarregado = models.CharField('Encarregado',max_length=100, blank=True, null=True)
     projeto_cod = models.ForeignKey(ProjetoCodigo, on_delete=models.SET_NULL, blank=True, null=True,verbose_name='Cód. Projetos')
     clima = models.CharField('Clima',max_length=20,choices=CLIMA)
     inicio = models.TimeField(verbose_name='Inicio',blank=True, null=True)

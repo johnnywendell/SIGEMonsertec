@@ -3,8 +3,8 @@
 from django.urls import reverse_lazy
 from django.db.models import F
 from core.custom_views import CustomCreateView, CustomListView, CustomUpdateView
-from .forms import RDOForm, ASForm, ItemFormSet
-from .models import RDO, AS, ItemMedicao
+from .forms import RDOForm, ASForm, ItemFormSet, ProjetoForm
+from .models import RDO, AS, ItemMedicao, ProjetoCodigo
 
 class AdicionarDocumentoView(CustomCreateView):
     def get_success_message(self, cleaned_data):
@@ -21,7 +21,7 @@ class AdicionarDocumentoView(CustomCreateView):
         self.object = None
         form = self.get_form(form_class)
         item_form = ItemFormSet(request.POST, prefix='item_form')
-        if (form.is_valid() and item_form.is_valid()):
+        if (form.is_valid()):
             self.object = form.save(commit=False)
             self.object.criado_por = self.request.user
             self.object.save()
@@ -58,14 +58,14 @@ class EditarDocumentoView(CustomUpdateView):
         form = self.get_form(form_class)
         item_form = ItemFormSet(
             instance=self.object, prefix='item_form')
-        if ItemMedicao.objects.filter(rdo=self.object.pk).count():
+        if ItemMedicao.objects.filter(doc_origem=self.object.pk).count():
             item_form.extra = 0
         return self.render_to_response(self.get_context_data(form=form, item_form=item_form))
     def post(self, request, form_class, *args, **kwargs):
         form = self.get_form(form_class)
         item_form = ItemFormSet(
             request.POST, prefix='item_form', instance=self.object)
-        if (form.is_valid() and item_form.is_valid()):
+        if (form.is_valid()):
             self.object = form.save(commit=False)
             self.object.save()
             item_form.instance = self.object
@@ -109,3 +109,39 @@ class RDOListView(DocumentoListView):
         context['add_url'] = reverse_lazy('planejamento:addrdoview')
         context['tipo_pessoa'] = 'rdo'
         return context
+    
+
+########################## Pop up views #############################
+
+class AdicionarOutrosBaseView(CustomCreateView):
+    template_name = "popup_form.html"
+    def get_context_data(self, **kwargs):
+        context = super(AdicionarOutrosBaseView,
+                        self).get_context_data(**kwargs)
+        context['titulo'] = 'Adicionar ' + self.model.__name__
+        return context
+class EditarOutrosBaseView(CustomUpdateView):
+    template_name = "popup_form.html"
+    def get_context_data(self, **kwargs):
+        context = super(EditarOutrosBaseView,
+                        self).get_context_data(**kwargs)
+        context['titulo'] = 'Editar {0}: {1}'.format(
+            self.model.__name__, str(self.object))
+        return context
+
+class AdicionarProjetoView(AdicionarOutrosBaseView):
+    form_class = ProjetoForm
+    model = ProjetoCodigo
+    success_url = reverse_lazy('planejamento:addprojetoview')
+    permission_codename = 'add_projeto'
+class ProjetoListView(CustomListView):
+    model = ProjetoCodigo
+    template_name = 'projeto_list.html'
+    context_object_name = 'all_projetos'
+    success_url = reverse_lazy('planejamento:listaprojetoview')
+    permission_codename = 'view_projeto'
+class EditarProjetoView(EditarOutrosBaseView):
+    form_class = ProjetoForm
+    model = ProjetoCodigo
+    success_url = reverse_lazy('planejamento:listaprojetoview')
+    permission_codename = 'change_projeto'

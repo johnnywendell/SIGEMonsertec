@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from .settings import DEBUG, MEDIA_ROOT, MEDIA_URL
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'', include('core.urls')),
@@ -27,9 +28,8 @@ urlpatterns = [
     path(r'canteirojato/', include('canteirojato.urls')),
     path(r'qualidade/', include('qualidade.urls')),
     path(r'planejamento/', include('planejamento.urls')),
-    path(r'financeiro/', include('financeiro.urls')),
+    path(r'efetivo/', include('efetivo.urls')),
 ]
-
 
 if DEBUG is True:
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

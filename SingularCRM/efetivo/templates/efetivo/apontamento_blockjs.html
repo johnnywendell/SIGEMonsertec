@@ -1,0 +1,56 @@
+{% block js %}
+    
+  {% load static %}
+  <!-- JQuery Mask Input Js -->
+  <script src="{% static 'js/jquery.mask.js' %}"></script>
+
+  {% include 'load_jqueryui.html' %}
+
+  {% include 'datepicker_js.html' %}
+
+  {% include 'tooltip_js.html' %}
+
+  <script type="text/javascript">
+    $.Admin.maskInput.maskLancamento();
+  </script>
+  <script>
+$(document).ready(function() {
+    // Inicializar Select2 nos campos existentes
+    $('.s3lect2').select2();
+    
+    // Adicionar novo formset dinamicamente
+    $('#add-item').click(function(ev) {
+        ev.preventDefault();       
+        // Contar quantos forms já existem (subtrair o título e o form de gerenciamento)
+        var totalForms = parseInt($('#id_apontamento_form-TOTAL_FORMS').val(), 10);     
+        // Pegar o template do novo form
+        var tmplMarkup = $('#item-apontamento').html();       
+        // Substituir o prefixo __prefix__ com o índice do novo form
+        var compiledTmpl = tmplMarkup.replace(/__prefix__/g, totalForms);       
+        // Adicionar o novo form ao contêiner
+        var newForm = $(compiledTmpl).appendTo('#formset-container');      
+        // Atualizar o valor do TOTAL_FORMS
+        $('#id_apontamento_form-TOTAL_FORMS').val(totalForms + 1);
+        // Inicializar Select2 no novo campo
+        newForm.find('.s3lect2').select2();
+
+        newForm.find('.delete-item').click(function() {
+            var itemId = $(this).data('item-id');
+            deleteFormset(itemId);
+        });
+    });
+    $('.delete-item').click(function() {
+        var itemId = $(this).data('item-id');
+        deleteFormset(itemId);
+    });
+    function deleteFormset(itemId) {
+        // Esconder o formset
+        $('#item-' + itemId).hide();
+        
+        // Marcar o formset como excluído
+        $('#id_apontamento_form-' + itemId + '-DELETE').prop('checked', true);
+    }
+});
+  </script>
+
+{% endblock %}

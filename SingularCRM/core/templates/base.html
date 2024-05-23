@@ -22,6 +22,9 @@
     <!-- Jquery 3.0.0 Js -->
     <script src="{% static 'js/jquery/jquery-3.0.0.min.js' %}"></script>
 
+    <!-- Select2  -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <title>SingularCODE | {%block title%}Bem-vindo{%endblock%}</title>
 </head>
@@ -174,6 +177,27 @@
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">&#xE85D;</i>
+                            <span>Efetivo</span>
+                        </a>
+                        <ul class="ml-menu">
+                        
+                            <li>
+                                <a href="{% url 'efetivo:listaapontamentoview' %}">
+                                    Apontamentos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'efetivo:listacolaboradoreview' %}">
+                                    Colaboradores
+                                </a>
+                            </li>
+                          
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">&#xE85D;</i>
                             <span>Canteiro de jato</span>
                         </a>
                         <ul class="ml-menu">
@@ -219,8 +243,8 @@
                                 </a>
                                 <ul class="ml-menu">
                                     <li>
-                                        <a href="#">
-                                            -----------
+                                        <a href="{% url 'planejamento:listaprojetoview' %}">
+                                            Projetos Códigos
                                         </a>
                                     </li>
                                 
@@ -264,64 +288,6 @@
                         </ul>
                     </li>
 
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">&#xE54E;</i>
-                            <span>Lançamentos</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a href="{% url 'financeiro:planocontasview' %}">
-                                    Plano de contas
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'financeiro:fluxodecaixaview' %}">
-                                    Fluxo de caixa
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'financeiro:listalancamentoview' %}">
-                                    Lançamentos
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    Entradas
-                                </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="{% url 'financeiro:listarecebimentosview' %}">
-                                            Recebimentos
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'financeiro:listacontareceberview' %}">
-                                            Contas a receber
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);" class="menu-toggle">
-                                    Saidas
-                                </a>
-                                <ul class="ml-menu">
-                                    <li>
-                                        <a href="{% url 'financeiro:listapagamentosview' %}">
-                                            Pagamentos
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{% url 'financeiro:listacontapagarview' %}">
-                                            Contas a pagar
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
             <!-- #Menu -->
@@ -354,7 +320,6 @@
 
     <!-- Sige Js -->
     <script src="{% static 'js/admin.js' %}"></script>
-
     
     {% if messages %}
     {%for message in messages%}

@@ -114,12 +114,21 @@
     </div>
   </div>
 </div>
-<div class="col-sm-11">
+<div class="col-sm-10">
   <div class="form-group">
     <div class="form-line">
       <label>{{form.doc.label}}</label>
       {% if form.doc.errors %}<label class="error">{% for error in form.doc.errors %}{{error}}{% endfor %}</label>{% endif %}
       {{form.doc}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.encarregado.label}}</label>
+      {% if form.encarregado.errors %}<label class="error">{% for error in form.encarregado.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.encarregado}}
     </div>
   </div>
 </div>

@@ -1,0 +1,89 @@
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.data.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.data.errors %}<label class="error">{% for error in form.data.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.data}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.area.label}}</label>
+      {% if form.area.errors %}<label class="error">{% for error in form.area.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.area}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.disciplina.label}}</label>
+      {% if form.disciplina.errors %}<label class="error">{% for error in form.disciplina.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.disciplina}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.projeto_cod.label}}</label>
+      {% if form.projeto_cod.errors %}<label class="error">{% for error in form.projeto_cod.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.projeto_cod}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-12">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.colaboradores.label}}</label>
+      {% if form.colaboradores.errors %}<label class="error">{% for error in form.colaboradores.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.colaboradores}}
+    </div>
+  </div>
+</div>
+
+<div id="apontamento" class="formset" style="background-color: rgba(240, 240, 245, 0.988);">
+  {{ apontamento_form.management_form }}
+  <div class="col-sm-11">
+    <h4 class="formset-title">Efetivo<span class="formset-padrao"><i class="material-icons" title="Preencher todos campos">&#xE887;</i></span></h4>
+  </div>  
+  <div id="formset-container">
+    {% for item in apontamento_form %}
+    <div id="item-{{ forloop.counter0 }}" class="col-sm-12">
+      <div class="form-group">
+        <div class="form-line">
+          <label>{{ item.label }}</label>
+          {% if item.errors %}<label class="error">{% for error in item.errors %}{{ error }}{% endfor %}</label>{% endif %}
+          {{ item }}
+          <a style="margin-left: 12px;" class="delete-item" data-item-id="{{ forloop.counter0 }}">❎</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<span id="add-item" class="btn btn-info" style="margin-top: 5px;">
+ Adicionar
+</span>
+
+<script type="text/html" id="item-apontamento">
+  <div class="col-sm-11">
+    <h4 class="formset-title">Efetivo<span class="formset-padrao"><i class="material-icons" title="Selecionar Colaborador e status">&#xE887;</i></span></h4>
+  </div>
+  <div id="item-__prefix__" class="col-sm-12">
+    <div class="form-group">
+      <div class="form-line">
+        <label>{{ apontamento_form.empty_form.label }}</label>
+        {{ apontamento_form.empty_form.as_p }}
+        <a class="delete-item" data-item-id="__prefix__">❎</a>
+      </div>
+    </div>
+  </div>
+</script>

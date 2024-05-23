@@ -33,9 +33,7 @@ import operator
 from functools import reduce
 
 
-DEFAULT_PERMISSION_MODELS = ['cliente', 'fornecedor', 'produto','empresa', 'transportadora',
-                             'lancamento', 'planocontasgrupo', 'localestoque', 'movimentoestoque',
-                              'contrato','area','solicitante','romaneio',]
+DEFAULT_PERMISSION_MODELS = ['empresa', 'itembm', 'contrato','area','solicitante','romaneio',]
                                
 
 CUSTOM_PERMISSIONS = ['configurar_nfe', 'emitir_notafiscal', 'cancelar_notafiscal', 'gerar_danfe', 'consultar_cadastro', 'inutilizar_notafiscal', 'consultar_notafiscal',

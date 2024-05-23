@@ -2,7 +2,17 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.forms import inlineformset_factory
 
-from .models import RDO,AS, ItemMedicao
+from .models import RDO,AS, ItemMedicao, ProjetoCodigo
+
+class ProjetoForm(forms.ModelForm):
+    class Meta:
+        model = ProjetoCodigo
+        fields = '__all__'
+        widgets = {
+                    'projeto_nome':forms.DateInput(attrs={'class': 'form-control'}), 
+                    'contrato':forms.Select(attrs={'class': 'form-control'}),
+
+                    }
 
 class PlanejamentoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

@@ -1,0 +1,38 @@
+
+<div class="table-responsive">
+  <table id="lista-database" class="table table-bordered table-striped lista-table">
+    <thead>
+      <tr>                  
+        <th>#ID</th>
+        <th>Data</th>
+        <th>Área</th>
+        <th>Disciplina</th>
+        <th>Projeto</th>
+        <th>Remover</th>
+      </tr>
+    </thead>
+
+    <tbody>
+     {% if all_apontamentos %}
+     {% for apontamento in all_apontamentos %}
+     <tr class="clickable-row" data-href="{% url 'efetivo:editarapontamentoview' apontamento.id %}">
+      <td>{{apontamento.pk}}</td>
+      <td>{{apontamento.get_data}}</td>
+      <td>{{apontamento.area}}</td>
+      <td>{{apontamento.disciplina}}</td>
+      <td>{{apontamento.projeto_cod}}</td>
+      <td class="lista-remove">
+        <input type="checkbox" name="{{apontamento.id}}" id="remover-entrada-{{apontamento.id}}"/>
+        <label class="remove-entry-label" for="remover-entrada-{{apontamento.id}}"></label>
+      </td>
+    </tr>
+    {% endfor %}
+    {%else%}
+    {%endif%}
+  </tbody>
+</table>
+</div>
+
+<script>
+  setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+</script>

@@ -3,8 +3,8 @@
   {% for form in formset %}
   <div id="{{formset.prefix}}-{{forloop.counter0}}" class="formset">
 
-    <div class="col-sm-12 formset-header">
-    <h4 class="formset-title">{{title}}<span class="formset-padrao"> (padrão)<i class="material-icons" title="As entradas padrão serão utilizadas no preenchimento de notas fiscais, pedidos de venda/compra, etc.">&#xE887;</i></span><a class="remove-formset"></a></h4>
+    <div class="col-sm-12 ">
+    <h4 class="formset-title">{{title}}<span class="formset-padrao"><i class="material-icons" title="Selecionar Colaborador e status">&#xE887;</i></span><a class="remove-formset">❎</a></h4>
     </div>
 
     {% for field in form.visible_fields %}

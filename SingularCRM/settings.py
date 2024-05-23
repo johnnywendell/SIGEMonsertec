@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-r#3_o+fc@e6he17=rnxl3n+kjh(nmb56ymz14lsut#35!rz+zy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['029d-187-63-120-70.ngrok-free.app', '127.0.0.1']
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,14 +36,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #app terceiros
     'qr_code',
+    'dal',
+    'dal_select2',
     #myapps
     'SingularCRM.core',
     'SingularCRM.login',
     'SingularCRM.cadastro',
-    'SingularCRM.financeiro',
     'SingularCRM.canteirojato',
     'SingularCRM.qualidade',
     'SingularCRM.planejamento',
+    'SingularCRM.efetivo',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +149,6 @@ LOGIN_NOT_REQUIRED = (
     r'/media/imagens/logo.png',
     r'/media/imagens/background.png',
 )
+
+
+CSRF_TRUSTED_ORIGINS = ['https://029d-187-63-120-70.ngrok-free.app']

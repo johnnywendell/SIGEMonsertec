@@ -23,6 +23,9 @@ class TimeStampedModel(models.Model):
     data_criacao = models.DateTimeField(editable=False)
     data_edicao = models.DateTimeField()
 
+    class Meta:
+        abstract = True
+
     def save(self, *args, **kwargs):
         # Atualizar datas criacao edicao
         if not self.data_criacao:
