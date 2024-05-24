@@ -12,7 +12,7 @@
 <div class="col-sm-6">
   <div class="form-group">
     <div class="form-line">
-      <label>{{form.area.label}}</label>
+      <label>{{form.area.label}}</label><strong style="color:red;"> *</strong>
       {% if form.area.errors %}<label class="error">{% for error in form.area.errors %}{{error}}{% endfor %}</label>{% endif %}
       {{form.area}}
     </div>
@@ -22,7 +22,7 @@
 <div class="col-sm-6">
   <div class="form-group">
     <div class="form-line">
-      <label>{{form.disciplina.label}}</label>
+      <label>{{form.disciplina.label}}</label><strong style="color:red;"> *</strong>
       {% if form.disciplina.errors %}<label class="error">{% for error in form.disciplina.errors %}{{error}}{% endfor %}</label>{% endif %}
       {{form.disciplina}}
     </div>
@@ -32,22 +32,14 @@
 <div class="col-sm-6">
   <div class="form-group">
     <div class="form-line">
-      <label>{{form.projeto_cod.label}}</label>
+      <label>{{form.projeto_cod.label}}</label><strong style="color:red;"> *</strong>
       {% if form.projeto_cod.errors %}<label class="error">{% for error in form.projeto_cod.errors %}{{error}}{% endfor %}</label>{% endif %}
       {{form.projeto_cod}}
     </div>
   </div>
 </div>
 
-<div class="col-sm-12">
-  <div class="form-group">
-    <div class="form-line">
-      <label>{{form.colaboradores.label}}</label>
-      {% if form.colaboradores.errors %}<label class="error">{% for error in form.colaboradores.errors %}{{error}}{% endfor %}</label>{% endif %}
-      {{form.colaboradores}}
-    </div>
-  </div>
-</div>
+
 
 <div id="apontamento" class="formset" style="background-color: rgba(240, 240, 245, 0.988);">
   {{ apontamento_form.management_form }}

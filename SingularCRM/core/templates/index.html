@@ -12,7 +12,7 @@
     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
       <div class="card inicial-card">
        <div class="header">
-         <h2><i class="material-icons">&#xE85D;</i>RESUMO MêS</h2>
+         <h2><i class="material-icons">&#xE85D;</i>PRESENÇAS DIÁRIAS ({{data_atual}})</h2>
          <div>
            <small>Efetivo geral</small>
          </div>
@@ -20,23 +20,32 @@
        <div class="body">
          <table class="table table-hover">
            <tbody>
-            {% if perms.cadastro %}
+            {% if perms.efetivo.view_apontamento %}
             <tr style="background-color: lightgreen;">
               <td> 
                 <a href="#">
                   <div style="height:100%;width:100%;">
-                    Presenças <b> {{quantidade_cadastro.entradas}}</b> 
+                    Presenças ANDAIME<b> {{quantidades_query.colaboradores_andaime}}</b> 
                   </div>
                 </a>              
               </td>
             </tr> 
-            {% endif %}
-            {% if perms.cadastro %}
+          
             <tr style="background-color: lightcoral;">
               <td> 
                 <a href="#">
                   <div style="height:100%;width:100%;">
-                    Faltas <b> {{quantidade_cadastro.saidas}}</b> 
+                    Presenças PINTURA <b> {{quantidades_query.colaboradores_pintura}}</b> 
+                  </div>
+                </a>              
+              </td>
+            </tr> 
+           
+            <tr style="background-color: lightyellow;">
+              <td> 
+                <a href="#">
+                  <div style="height:100%;width:100%;">
+                    Presenças ISOLAMENTO <b> {{quantidades_query.colaboradores_isolamento}}</b> 
                   </div>
                 </a>              
               </td>
@@ -72,8 +81,8 @@
   <div class="body">
     <table class="table table-hover">
       <tbody>
-        {% if perms.financeiro.view_lancamento %}
-        <tr {% if alertas.contas_receber_atrasadas %}class="alerta"{% endif %}>
+        {% if perms.efetivo.view_apontamento %}
+        <tr class="alertas">
           <td> 
             <a href="#">
               <div style="height:100%;width:100%;">
@@ -102,7 +111,7 @@
 </div>
 
 
-{% if perms.financeiro.acesso_fluxodecaixa %}
+{% if perms.efetivo.view_apontamento %}
 <div class="row clearfix">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="card">
@@ -111,7 +120,7 @@
           EFETIVO DO DIA<b style="padding-left:4px;">(DIA {{data_atual}})</b>
         </h2>
         <div class="header-btn">
-          <a href="#" class="btn btn-primary"><i class="material-icons">&#xE8A0;</i><span> FLUXO DE CAIXA</span></a>
+          <a href="{% url 'efetivo:listaapontamentoview' %}" class="btn btn-primary"><i class="material-icons">&#xE8A0;</i><span> DETALHES APONTAMENTOS</span></a>
         </div>
       </div>
 
@@ -129,25 +138,15 @@
           </thead>
 
           <tbody>
-            {% if movimento_dia %}
-            <tr>
-              <td>{{movimento_dia.format_data_movimento}}</td>
-              <td>{{movimento_dia.saldo_inicial}}</td>
-              <td>{{movimento_dia.entradas}}</td>
-              <td>{{movimento_dia.saidas}}</td>
-              <td {%if movimento_dia.valor_lucro_prejuizo < 0 %}style="background-color:#f1b1b1;font-weight:bold;"{% else %}style="background-color:#b3e5b3;font-weight:bold;"{% endif %}>{{movimento_dia.valor_lucro_prejuizo}}</td>
            
-            </tr>
-            {% else %}
             <tr>
               <td>{{data_atual}}</td>
-              <td>{{saldo}}</td>
-              <td>0</td>
-              <td>0</td>
-              <td style="background-color:#b3e5b3;font-weight:bold;">0</td>
-        
+              <td>{{quantidades_query.lancamentos_do_dia}}</td>
+              <td style="background-color:#b3e5b3;font-weight:bold;">{{quantidades_query.colaboradores_presentes_hoje}}</td>
+              <td style="background-color:#f1b1b1;font-weight:bold;" >{{quantidades_query.colaboradores_faltas_hoje}}</td>
+              <td>{{quantidades_query.colaboradores_ferias_hoje}}</td>
+
             </tr>
-            {% endif %}
           </tbody>
         </table>
       </div>

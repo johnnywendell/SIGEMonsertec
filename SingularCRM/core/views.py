@@ -2,6 +2,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F, Sum
+from efetivo.models import Apontamento, ApontamentoColaborador
 
 from datetime import datetime,date
 import calendar
@@ -25,81 +26,31 @@ class IndexView(TemplateView):
         ultimo_dia_mes = calendar.monthrange(date.today().year, date.today().month)[1]
         data_final = datetime.now().replace(day=ultimo_dia_mes).date()
 
-        # Filtra objetos entre as datas inicial e final
-        #movimentos = MovimentoCaixa.objects.filter(data_movimento__range=(data_inicial, data_final))
+        # QUERYS
+        apontamentos_hoje = Apontamento.objects.filter(data=data_atual)
+        lancamentos_do_dia = apontamentos_hoje.count()
+        colaboradores_presentes_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='0').count()
+        colaboradores_faltas_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='1').count()
+        colaboradores_ferias_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='4').count()
 
-        # Obtém a soma dos valores de entrada e saída dos objetos filtrados
-        #soma_entradas = movimentos.aggregate(soma_entradas=Sum('entradas'))['soma_entradas']
-        #soma_saidas = movimentos.aggregate(soma_saidas=Sum('saidas'))['soma_saidas']
+        colaboradores_andaime = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='0',
+                                                                      apontamento__disciplina='AND').count()
+        colaboradores_isolamento= ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='0',
+                                                                      apontamento__disciplina='ISO').count()
+        colaboradores_pintura = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='0',
+                                                                      apontamento__disciplina='PIN').count()
 
         context['data_atual'] = data_atual.strftime('%d/%m/%Y')
 
-        #context['quantidade_cadastro'] = {
-        #    'entradas': 0.00 if not soma_entradas else "{:.2f}".format(soma_entradas),
-        #    'saidas': 0.00 if not soma_saidas else"{:.2f}".format(soma_saidas),
-        #}
-
-        # Contas atrasadas
-        #alertas = {
-        #    'contas_receber_atrasadas': Entrada.objects.filter(data_vencimento__lte=data_atual, status__in=['1', '2']).count(),
-        #    'contas_pagar_atrasadas': Saida.objects.filter(data_vencimento__lte=data_atual, status__in=['1', '2']).count()
-        #}
-        #context['alertas'] = alertas
-        
-        # Tenta encontrar o movimento do dia
-        #try:
-        #    context['movimento_dia'] = MovimentoCaixa.objects.get(data_movimento=data_atual)
-        #except (MovimentoCaixa.DoesNotExist, ObjectDoesNotExist):
-        #    ultimo_mvmt = MovimentoCaixa.objects.filter(data_movimento__lt=data_atual)
-        #    context['saldo'] = ultimo_mvmt.latest('data_movimento').saldo_final if ultimo_mvmt else '0,00'
-
-        # Gráfico
-        #movimentos = MovimentoCaixa.objects.filter(data_movimento__range=(data_inicial, data_final))
-
-        # Agrupa os movimentos por data e calcula a soma das saídas e entradas por dia
-        #movimentos_diarios = movimentos.values('data_movimento').annotate(
-        #    soma_entradas=Sum('entradas'), soma_saidas=Sum('saidas')
-        #)
-
-        #datas = [movimento['data_movimento'].strftime('%d/%m/%Y') for movimento in movimentos_diarios]
-        #entradas_diarias = [movimento['soma_entradas'] for movimento in movimentos_diarios]
-        #saidas_diarias = [movimento['soma_saidas'] for movimento in movimentos_diarios]
-
-        # Configura a largura das barras
-        #largura_barra = 0.35
-        #indice = np.arange(len(datas))
-
-        # Cria o gráfico de barras
-        #fig, ax = plt.subplots()
-        #ax.bar(indice - largura_barra/2, entradas_diarias, largura_barra, color='green', label='Entradas')
-        #ax.bar(indice + largura_barra/2, saidas_diarias, largura_barra, color='red', label='Saídas')
-        #ax.set_xlabel('Data')
-        #ax.set_ylabel('Valor')
-        #ax.set_title('Entradas e Saídas Dia a Dia')
-        #ax.set_xticks(indice)
-        #ax.set_xticklabels(datas, rotation=45, ha='right')
-        #ax.legend()
-
-        # Adiciona legendas aos valores das barras
-        #for i in range(len(datas)):
-        #    ax.text(indice[i] - largura_barra/2, entradas_diarias[i], "{:.2f}".format(entradas_diarias[i]), ha='center', va='bottom')
-        #    ax.text(indice[i] + largura_barra/2, saidas_diarias[i], "{:.2f}".format(saidas_diarias[i]), ha='center', va='bottom')
-
-        #plt.tight_layout()
-        # Salva o gráfico como um arquivo temporário
-        #with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp_file:
-        #    temp_filename = temp_file.name
-        #    plt.savefig(temp_filename, format='png')
-
-        # Lê o arquivo temporário e converte em base64
-        #with open(temp_filename, 'rb') as img_file:
-        #    graph_img = base64.b64encode(img_file.read()).decode()
-
-        # Remove o arquivo temporário
-        #os.unlink(temp_filename)
-
-        # Adiciona a imagem do gráfico ao contexto
-        #context['graph_img'] = 'data:image/png;base64,' + graph_img
+        context['quantidades_query'] = {
+            'lancamentos_do_dia': 0 if not lancamentos_do_dia else lancamentos_do_dia,
+            'colaboradores_presentes_hoje': 0 if not colaboradores_presentes_hoje else colaboradores_presentes_hoje,
+            'colaboradores_faltas_hoje': 0 if not colaboradores_faltas_hoje else colaboradores_faltas_hoje,
+            'colaboradores_ferias_hoje': 0 if not colaboradores_ferias_hoje else colaboradores_ferias_hoje,
+            'colaboradores_andaime': 0 if not colaboradores_andaime else colaboradores_andaime,
+            'colaboradores_isolamento': 0 if not colaboradores_isolamento else colaboradores_isolamento,
+            'colaboradores_pintura': 0 if not colaboradores_pintura else colaboradores_pintura,
+        }
 
         return context
 

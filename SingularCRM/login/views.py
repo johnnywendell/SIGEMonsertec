@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, get_user_model
+from django.contrib.auth import login, logout, get_user_model, update_session_auth_hash
 from django.views.generic import View, TemplateView, FormView, ListView, DeleteView
 from django.views.generic.edit import UpdateView
 
@@ -33,7 +34,8 @@ import operator
 from functools import reduce
 
 
-DEFAULT_PERMISSION_MODELS = ['empresa', 'itembm', 'contrato','area','solicitante','romaneio',]
+DEFAULT_PERMISSION_MODELS = ['empresa', 'itembm', 'contrato','area','solicitante','romaneio','aprovador',
+                             'relatorioarea','relatoriojato','apontamento']
                                
 
 CUSTOM_PERMISSIONS = ['configurar_nfe', 'emitir_notafiscal', 'cancelar_notafiscal', 'gerar_danfe', 'consultar_cadastro', 'inutilizar_notafiscal', 'consultar_notafiscal',
@@ -177,38 +179,24 @@ class PasswordResetConfirmView(FormView):
         userModel = get_user_model()
         form = self.form_class(request.POST)
 
-        if uidb64 is None or token is None:
-            form.add_error(
-                field=None, error=u"O link usado para a troca de senha não é válido ou expirou, por favor tente enviar novamente.")
-            return self.form_invalid(form)
-
-        try:
-            uid = urlsafe_base64_decode(uidb64)
-            user = userModel._default_manager.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, userModel.DoesNotExist):
-            user = None
-
-        if user is not None and default_token_generator.check_token(user, token):
-            if form.is_valid():
-                new_password = form.cleaned_data['new_password']
-                new_password_confirm = form.cleaned_data[
-                    'new_password_confirm']
-                if new_password == new_password_confirm:
-                    user.set_password(new_password)
-                    user.save()
-                    messages.success(request, u"Senha trocada com sucesso")
-                    return self.form_valid(form)
-                else:
-                    form.add_error(field=None, error=u"Senhas diferentes.")
-                    return self.form_invalid(form)
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            new_password = form.cleaned_data['new_password']
+            new_password_confirm = form.cleaned_data['new_password_confirm']
+            if new_password == new_password_confirm:
+                user = request.user
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)  # Manter a sessão autenticada
+                # Redirecionar para alguma página de sucesso
+                return HttpResponseRedirect(self.get_success_url())
             else:
-                form.add_error(
-                    field=None, error=u"Não foi possivel trocar a senha. Formulário inválido.")
-                return self.form_invalid(form)
-        else:
-            form.add_error(
-                field=None, error=u"O link usado para a troca de senha não é válido ou expirou, por favor tente enviar novamente.")
-            return self.form_invalid(form)
+                form.add_error('new_password_confirm', 'As senhas não coincidem.')
+        return render(request, self.template_name, {'form': form})
 
 
 class MeuPerfilView(TemplateView):

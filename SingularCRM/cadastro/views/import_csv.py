@@ -8,6 +8,7 @@ from cadastro.models import geral
 from efetivo.models import Colaborador
 
 
+
 ########### import csv ##############
 
 def save_data_itembm(data):
@@ -23,7 +24,7 @@ def save_data_itembm(data):
         und = item.get('und')
         preco_item = item.get('preco_item')
         obj = geral.ItemBm(
-                contrato = b.Contrato.objects.get(pk=contrato),
+                contrato = geral.Contrato.objects.get(pk=contrato),
                 item_ref = item_ref,
                 disciplina = disciplina,
                 descricao = descricao,

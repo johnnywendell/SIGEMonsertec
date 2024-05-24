@@ -109,6 +109,14 @@ class ApontamentoListView(DocumentoListView):
         context['add_url'] = reverse_lazy('efetivo:addapontamentoview')
         context['tipo_pessoa'] = 'apontamento'
         return context
+    def get_queryset(self):
+        user = self.request.user
+        is_superadmin = user.is_superuser
+        if is_superadmin:
+            queryset = super().get_queryset()
+        else:
+            queryset = super().get_queryset().filter(criado_por=user)
+        return queryset
 
 class EditarDocumentoView(CustomUpdateView):
     def get_success_message(self, cleaned_data):

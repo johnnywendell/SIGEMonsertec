@@ -14,7 +14,7 @@ urlpatterns = [
     path(r'esqueceu/', v.ForgotPasswordView.as_view(), name='esqueceuview'),
 
     # login/trocarsenha/:
-    path(r'trocarsenha/<str:uidb64>-<str:token>/',
+    path(r'trocarsenha/',
         v.PasswordResetConfirmView.as_view(), name='trocarsenhaview'),
 
     # logout

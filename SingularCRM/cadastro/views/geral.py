@@ -7,7 +7,7 @@ from core.custom_views import CustomCreateView, CustomListView, CustomUpdateView
 from cadastro.forms.geral import ContratoForm, AreaForm, SolicitanteForm, AprovadorForm, ItemBmForm
 from cadastro.forms.inline_formsets import EtapaAprovacaoFormSet
 from cadastro.models.geral import Contrato, Area, Solicitante, Aprovador, EtapaAprovacao, ItemBm
-
+from django.contrib import messages
 from datetime import datetime
 
 class AdicionarDocumentoView(CustomCreateView):
@@ -193,7 +193,19 @@ class ItemBmListView(CustomListView):
     context_object_name = 'all_itensmed'
     success_url = reverse_lazy('cadastro:listaitensmedview')
     permission_codename = 'view_itemmed'
-    paginate_by = 2000
+    def get_queryset(self):
+        try:
+            filtro = self.request.GET.get('item_filtro')
+            if filtro:
+                filtro = self.request.GET.get('item_filtro')
+            else:
+                filtro = '10-100'
+        except ValueError:
+            messages.error(
+                self.request, 'FILTRO NÃO VÁLIDO')
+        return ItemBm.objects.filter(item_ref__icontains=filtro)
+
+
 class EditarItemBmView(EditarOutrosBaseView):
     form_class = ItemBmForm
     model = ItemBm
