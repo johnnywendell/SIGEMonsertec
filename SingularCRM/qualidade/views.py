@@ -269,13 +269,14 @@ def render_pdf_view(request, pk):
     relatorio = get_object_or_404(Relatorio, pk=pk)
     template_path = 'rip.html'
     teste = relatorio.relatorio.all()
+    materiais = Material.objects.filter(relatorio=pk).all()
     links = []
     for item in teste:
         if item.photo:
             link = item.photo.url
             link = link[1:]
             links.append(link)
-    context = {'relatorio': relatorio,'links':links}
+    context = {'relatorio': relatorio,'links':links, 'materiais':materiais}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
 
@@ -298,6 +299,9 @@ def render_pdf_view_simple(request, pk):
     template_path = 'rip_simp.html'
     teste = checklist.relatorio.all()
     etapas = checklist.relatorios.all()
+    romaneio = Material.objects.filter(relatorio=pk).first()
+    if romaneio:
+        romaneio = romaneio.n_romaneio
     links = []
     ultimo_item = etapas[0:]
     espessura_total = 0
@@ -313,7 +317,7 @@ def render_pdf_view_simple(request, pk):
             link = item.photo.url
             link = link[1:]
             links.append(link)
-    context = {'object': checklist, 'links':links, 'cor':cor, 'espessura_total':espessura_total, 'aderencia':aderencia,'ambiente':ambiente}
+    context = {'object': checklist, 'links':links, 'cor':cor, 'espessura_total':espessura_total, 'aderencia':aderencia,'ambiente':ambiente,'romaneio': romaneio}
    
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

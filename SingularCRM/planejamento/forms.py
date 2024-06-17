@@ -1,8 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.forms import inlineformset_factory
-
-from .models import RDO,AS, ItemMedicao, ProjetoCodigo
+from .models import RDO,AS, ItemMedicao, ProjetoCodigo, DISCIP
 
 class ProjetoForm(forms.ModelForm):
     class Meta:
@@ -11,7 +10,6 @@ class ProjetoForm(forms.ModelForm):
         widgets = {
                     'projeto_nome':forms.DateInput(attrs={'class': 'form-control'}), 
                     'contrato':forms.Select(attrs={'class': 'form-control'}),
-
                     }
 
 class PlanejamentoForm(forms.ModelForm):
@@ -88,17 +86,19 @@ class ASForm(PlanejamentoForm):
         labels = PlanejamentoForm.Meta.labels
 
 class ItemForm(forms.ModelForm):
-    cod_contato = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),label=_('Código item'),required=False)
+    disciplina = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}),label=_('Disciplina'),choices=DISCIP)
+    cod_contrato = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),label=_('Código item'),required=False)
     def __init__(self, *args, **kwargs):
         super(ItemForm, self).__init__(*args, **kwargs)
+  
 
     class Meta:
         model = ItemMedicao 
 
-        fields = ('cod_contato','item_contrato','qtd','total','efetivo',
+        fields = ('disciplina','cod_contrato','item_contrato','qtd','total','efetivo',
                   'qtd_t','qtd_e','qtd_pranchao','qtd_piso','montagem','placa')
         widgets = {
-            'item_contrato':forms.TextInput(attrs={'class': 'form-control'}), 
+            'item_contrato':forms.Select(attrs={'class': 'form-control'}), 
             'qtd':forms.TextInput(attrs={'class': 'form-control'}), 
             'total':forms.TextInput(attrs={'class': 'form-control'}), 
             'efetivo':forms.TextInput(attrs={'class': 'form-control'}), 
@@ -110,6 +110,7 @@ class ItemForm(forms.ModelForm):
             'placa':forms.TextInput(attrs={'class': 'form-control'}), 
         }
         labels = {
+
             'item_contrato': _('Item Contrato'),
             'qtd': _('Quantidade'),
             'total': _('valor total'),

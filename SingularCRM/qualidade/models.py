@@ -73,6 +73,9 @@ class Relatorio(TimeStampedModel):
         return self.inicio.strftime('%d/%m/%Y')
     def get_termino(self):
         return self.termino.strftime('%d/%m/%Y')
+    def __str__(self):
+        return super().__str__()
+    
    
     
 class EtapaPintura(models.Model):

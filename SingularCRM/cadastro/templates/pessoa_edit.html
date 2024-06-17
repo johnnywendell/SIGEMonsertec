@@ -3,7 +3,14 @@
 
 {%block title%} {{object.nome_razao_social}} {%endblock%}
 {%block content%}
+
+{% if tipo_pessoa == 'relatoriojato' %} 
 {% include 'modal_materiais.html' %}
+{% elif tipo_pessoa == 'rdo' %} 
+{% include 'modal_rdo.html' %}
+{% endif %}
+
+
 <section class="content">
   <div class="container-fluid">
 
@@ -18,20 +25,17 @@
             <h2>
               <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a>{{object}}
             </h2>
-            
-            {% if tipo_pessoa == 'relatoriojato' or tipo_pessoa == 'relatorioarea' %}
-
             <div class="header-btn">
+            {% if tipo_pessoa == 'relatoriojato' or tipo_pessoa == 'relatorioarea' %}
               <a class="btn btn-info" href="{% url 'qualidade:render_pdf_view' object.pk %}"style="margin: 6px;">PDF</a>
-              <a class="btn btn-info" href="{% url 'qualidade:render_pdf_view_simple' object.pk %}"style="margin: 6px;">PDF SIMPLIFICADO</a>
+              <a class="btn btn-info" href="{% url 'qualidade:render_pdf_view_simple' object.pk %}"style="margin: 6px;">PDF SIMPLIFICADO</a>  
             {% elif tipo_pessoa == 'apontamento' %} 
               <a id="gerar_copia_apontamento" href="{% url 'efetivo:copiarapontamento' object.id %}" class="btn btn-primary">GERAR CÓPIA APONTAMENTO</a>
-         
             {% else %}
             {% endif %}
-
-            <div><small>Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.</small></div>
-          
+            
+          </div>
+          <div><small>Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.</small></div>
           </div>
           <!--# Header-->
 
@@ -277,6 +281,16 @@
                   {% if tipo_pessoa == 'relatoriojato'%}
                   <div role="tabpanel" class="tab-pane formset-tab" id="tab_materiais">
                   {% include 'material_add.html' %}
+                  </div>
+                  {% endif %}
+
+                  <!-- #Tab Relatorio -->
+                  {% if tipo_pessoa == 'rdo'%}
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_itemmedicao">
+                
+
+                  {% include 'rdos/rdo_itens.html' %}
+
                   </div>
                   {% endif %}
 

@@ -50,7 +50,7 @@
         <hr style="margin-top: 1px;">        
         <table>
                     <th class="text-right">N.º RIP</th>
-                    <td>{{ object }}</td>
+                    <td>{{ object.pk }}</td>
                     <th class="text-right">Procedimento</th>
                     <td> PNE-00-00095 </td>
                     <th class="text-right">Documento Ref.</th>
@@ -60,8 +60,10 @@
         </table>
         <hr style="margin-top: 1px;">
         <table>
-                    <th class="text-right">N.º RIP</th>
-                    <td> {{ object }} </td>
+                    {% if romaneio %}    
+                    <th class="text-right">N.º romaneio</th>
+                    <td> {{ romaneio }} </td>
+                    {% endif %}
                     <th class="text-right">Solicitante</th>
                     <td>{{ object.fiscal }}</td>
                     <th class="text-right">Inspetor</th>
