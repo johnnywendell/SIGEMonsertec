@@ -10,10 +10,12 @@ DISCIP = (
 )
 
 STATUS = (
-    ('0', 'PRESENTE'),
-    ('1', 'FALTA'),
-    ('2', 'TRANSFERIDO'),
-    ('3', 'FÉRIAS'),
+    ('PRESENTE', 'PRESENTE'),
+    ('FALTA', 'FALTA'),
+    ('TRANSFERIDO', 'TRANSFERIDO'),
+    ('FÉRIAS', 'FÉRIAS'),
+    ('EXAMES', 'EXAMES'),
+    ('TREINAMENTO', 'TREINAMENTO'),
 )
 LIDER = (
     ('0', 'NÃO'),

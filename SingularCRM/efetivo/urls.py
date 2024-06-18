@@ -25,4 +25,9 @@ urlpatterns = [
     path(r'colaborador/importarcolaborador/',
         import_csv_colaboradores, name='importar_csv_colaborador'),
 
+    #exportacao
+    path(r'exportar_apontamentos/',
+        v.ExportarView.as_view(), name='exportar_apontamentos'),
+    path(r'exportar_efetivo_xls/',
+        v.export_efetivo_xls, name='export_efetivo_xls'),
 ]

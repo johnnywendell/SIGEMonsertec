@@ -36,8 +36,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #app terceiros
     'qr_code',
-    'dal',
-    'dal_select2',
     #myapps
     'SingularCRM.core',
     'SingularCRM.login',

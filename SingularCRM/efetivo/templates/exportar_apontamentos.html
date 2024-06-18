@@ -1,0 +1,46 @@
+{%extends 'base.html'%}
+
+{%block title%}Exportar apontamentos{%endblock%}
+{%block content%}
+<section class="content">
+  <div class="container-fluid lista">
+  
+    <div class="title-header">
+      <h2>Exportar Apontamentos</h2>
+      
+    </div>
+    
+    {% include 'msg_sucesso.html' %}
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lista-content">
+      <div class="card">
+          <div class="header">
+            <h2>
+              COLABORADORES
+            </h2>
+              <div class="header-btn">
+      
+              </div>
+          </div>
+
+          <div class="body">
+            {% if perms.efetivo.view_colaborador %}
+           <form method="get" class="form-group" action="{% url 'efetivo:export_efetivo_xls' %}">
+            <label for="start_date">Data de Início:</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
+            <br>
+            <label for="end_date">Data de Fim:</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" required>
+            <br>
+            <button type="submit">Exportar Efetivo</button>
+        </form>
+            {% endif %}
+
+      </div>
+
+  </div>
+</div>
+
+</div>
+</section>
+{%endblock%}

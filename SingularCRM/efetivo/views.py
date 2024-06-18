@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.db.models import F
+from django.http import HttpResponse
 from core.custom_views import CustomCreateView, CustomListView, CustomUpdateView, CustomView
+from django.views.generic import TemplateView
 from .forms import ColaboradorForm,ApontamentoForm,ApontamentoColaboradorFormSet
 from .models import Colaborador, Apontamento,ApontamentoColaborador
 from datetime import datetime
-
-
-#################AUTO COMPLETES###############
+import xlwt
 
 #################pop up###############
 
@@ -44,6 +44,10 @@ class EditarColaboradorView(EditarOutrosBaseView):
     success_url = reverse_lazy('efetivo:listacolaboradoreview')
     permission_codename = 'change_colaborador'
 
+
+class ExportarView(TemplateView):
+    template_name = 'exportar_apontamentos.html'
+    permission_codename = 'view_colaborador'
 
 ###################### detalhada#############
 class AdicionarDocumentoView(CustomCreateView):
@@ -194,3 +198,64 @@ class GerarCopiaApontamentoView(GerarCopiaEfetivoView):
         instance = Apontamento.objects.get(id=apontamento_id)
         redirect_url = 'efetivo:editarapontamentoview'
         return super(GerarCopiaApontamentoView, self).get(request, instance, redirect_url, *args, **kwargs)
+
+
+def export_xlsx(model, filename, queryset, columns):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="%s"' % filename
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet(model)
+
+    row_num = 0
+
+    header_style = xlwt.easyxf('pattern: pattern solid, fore_color dark_blue; font: color white, bold True;')
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], header_style)
+
+    default_style = xlwt.XFStyle()
+
+    # Definindo um estilo para data (DD/MM/YYYY)
+    date_style = xlwt.easyxf(num_format_str='DD/MM/YYYY')
+
+    rows = queryset
+    for row, rowdata in enumerate(rows):
+        row_num += 1
+        for col, val in enumerate(rowdata):
+            if 'data' in columns[col].lower():
+                default_style = date_style
+            else:
+                default_style = xlwt.XFStyle()  # Reseta o estilo para não afetar outras colunas
+            ws.write(row_num, col, val, default_style)
+
+    wb.save(response)
+    return response
+
+def export_efetivo_xls(request):
+    MDATA = datetime.now().strftime('%Y-%m-%d')
+    model = 'ApontamentoColaborador'
+    filename = 'efetivo_monsertec.xls'
+    _filename = filename.split('.')
+    filename_final = f'{_filename[0]}_{MDATA}.{_filename[1]}'
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    queryset = ApontamentoColaborador.objects.filter(apontamento__data__range=[start_date, end_date]).values_list('apontamento__data',
+            'colaborador__nome',
+            'colaborador__matricula',
+            'status',
+            'apontamento__area__area',  
+            'apontamento__projeto_cod__projeto_nome',
+            'apontamento__disciplina',
+            'lider')                                      
+    columns = ('Data',
+        'Nome',
+        'Matricula',
+        'Status',
+        'Área',
+        'Projeto Código',
+        'Disciplina',
+        'Líder')
+                                                                     
+    response = export_xlsx(model, filename_final, queryset, columns)
+    return response

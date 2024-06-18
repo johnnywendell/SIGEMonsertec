@@ -7,13 +7,6 @@ from efetivo.models import Apontamento, ApontamentoColaborador
 from datetime import datetime,date
 import calendar
 
-import matplotlib.pyplot as plt
-import os
-import io
-import base64
-import numpy as np
-import tempfile 
-
 class IndexView(TemplateView):
     template_name = 'index.html'
 
