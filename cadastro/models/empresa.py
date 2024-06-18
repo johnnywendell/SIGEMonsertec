@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 from .base import Pessoa
 from login.models import Usuario
-from settings import MEDIA_ROOT
+from SingularCRM.settings import MEDIA_ROOT
 
 
 def logo_directory_path(instance, filename):

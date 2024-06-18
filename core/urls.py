@@ -2,7 +2,7 @@
 from django.urls import path
 from . import views
 
-from settings import DEBUG
+from SingularCRM.settings import DEBUG
 
 app_name = 'base'
 urlpatterns = [

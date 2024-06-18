@@ -40,13 +40,13 @@ INSTALLED_APPS = [
     #app terceiros
     'qr_code',
     #myapps
-    'SingularCRM.core',
-    'SingularCRM.login',
-    'SingularCRM.cadastro',
-    'SingularCRM.canteirojato',
-    'SingularCRM.qualidade',
-    'SingularCRM.planejamento',
-    'SingularCRM.efetivo',
+    'core',
+    'login',
+    'cadastro',
+    'canteirojato',
+    'qualidade',
+    'planejamento',
+    'efetivo',
 ]
 
 MIDDLEWARE = [
