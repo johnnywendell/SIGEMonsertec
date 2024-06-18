@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import Csv, config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r#3_o+fc@e6he17=rnxl3n+kjh(nmb56ymz14lsut#35!rz+zy'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['3b2b-187-63-120-70.ngrok-free.app', '127.0.0.1']
+ALLOWED_HOSTS = ['35.247.196.71', 'localhost', 'monsertec.singularcode.net', '127.0.0.1']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
