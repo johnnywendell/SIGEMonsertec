@@ -16,7 +16,7 @@ class Area(models.Model):
     area = models.CharField(max_length=30, unique=True)
     contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
     class Meta:
-        ordering = ('pk',)
+        ordering = ('area',)
     def __str__(self):
         return self.area
 
@@ -24,7 +24,7 @@ class Solicitante(models.Model):
     solicitante = models.CharField(max_length=30, unique=True)
     contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
     class Meta:
-        ordering = ('pk',)
+        ordering = ('solicitante',)
     def __str__(self):
         return self.solicitante
     
@@ -32,7 +32,7 @@ class Aprovador(models.Model):
     aprovador = models.CharField(max_length=255, unique=True)
     contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE)
     class Meta:
-        ordering = ('pk',)
+        ordering = ('aprovador',)
     def __str__(self):
         return self.aprovador
 class EtapaAprovacao(models.Model):

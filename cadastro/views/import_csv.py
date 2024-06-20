@@ -65,7 +65,6 @@ def save_data_colaboradores(data):
                 nome = nome,
                 matricula = matricula,
                 funcao = funcao,
-                ativo = ativo,
         )
         aux.append(obj)
     Colaborador.objects.bulk_create(aux)

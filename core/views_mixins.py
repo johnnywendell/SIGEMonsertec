@@ -6,6 +6,19 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
 
 
+class StaffUserRequiredMixin(object):
+
+    @method_decorator(login_required(login_url='login:loginview'))
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            messages.add_message(
+                request,
+                messages.WARNING,
+                u'Apenas membros da equipe tem permissão para realizar esta operação.',
+                'permission_warning')
+            return redirect('base:index')
+        return super(StaffUserRequiredMixin, self).dispatch(request, *args, **kwargs)
+
 class SuperUserRequiredMixin(object):
 
     @method_decorator(login_required(login_url='login:loginview'))

@@ -133,15 +133,15 @@ class AdicionarProjetoView(AdicionarOutrosBaseView):
     form_class = ProjetoForm
     model = ProjetoCodigo
     success_url = reverse_lazy('planejamento:addprojetoview')
-    permission_codename = 'add_projeto'
+    permission_codename = 'add_projetocodigo'
 class ProjetoListView(CustomListView):
     model = ProjetoCodigo
     template_name = 'projeto_list.html'
     context_object_name = 'all_projetos'
     success_url = reverse_lazy('planejamento:listaprojetoview')
-    permission_codename = 'view_projeto'
+    permission_codename = 'view_projetocodigo'
 class EditarProjetoView(EditarOutrosBaseView):
     form_class = ProjetoForm
     model = ProjetoCodigo
     success_url = reverse_lazy('planejamento:listaprojetoview')
-    permission_codename = 'change_projeto'
+    permission_codename = 'change_projetocodigo'

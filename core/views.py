@@ -22,15 +22,15 @@ class IndexView(TemplateView):
         # QUERYS
         apontamentos_hoje = Apontamento.objects.filter(data=data_atual)
         lancamentos_do_dia = apontamentos_hoje.count()
-        colaboradores_presentes_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='0').count()
-        colaboradores_faltas_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='1').count()
-        colaboradores_ferias_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='4').count()
+        colaboradores_presentes_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='PRESENTE').count()
+        colaboradores_faltas_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='FALTA').count()
+        colaboradores_ferias_hoje = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='FERIAS').count()
 
-        colaboradores_andaime = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='0',
+        colaboradores_andaime = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='PRESENTE',
                                                                       apontamento__disciplina='AND').count()
-        colaboradores_isolamento= ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='0',
+        colaboradores_isolamento= ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='PRESENTE',
                                                                       apontamento__disciplina='ISO').count()
-        colaboradores_pintura = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='0',
+        colaboradores_pintura = ApontamentoColaborador.objects.filter(apontamento__in=apontamentos_hoje,status='PRESENTE',
                                                                       apontamento__disciplina='PIN').count()
 
         context['data_atual'] = data_atual.strftime('%d/%m/%Y')

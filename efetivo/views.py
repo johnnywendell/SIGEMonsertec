@@ -116,7 +116,8 @@ class ApontamentoListView(DocumentoListView):
     def get_queryset(self):
         user = self.request.user
         is_superadmin = user.is_superuser
-        if is_superadmin:
+        is_staff = user.is_staff 
+        if is_superadmin or is_staff:
             queryset = super().get_queryset()
         else:
             queryset = super().get_queryset().filter(criado_por=user)

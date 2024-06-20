@@ -10,7 +10,7 @@ class ProjetoCodigo(models.Model):
     class Meta:
         ordering = ('pk',)
     def __str__(self):
-        return self.projeto_nome
+        return '{} --- {}'.format(self.pk,self.projeto_nome)
 
 TIPO = (
     ('PARADA','PARADA'),

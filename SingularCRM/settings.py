@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['35.247.196.71', 'localhost', 'monsertec.singularcode.net', '127.0.0.1']
+ALLOWED_HOSTS = ['35.247.196.71', 'localhost', '127.0.0.1','monsertec.singularcode.net']
 
 # Application definition
 INSTALLED_APPS = [
@@ -88,8 +88,13 @@ WSGI_APPLICATION = 'SingularCRM.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+	'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'newmonsertec',
+        'USER': 'usermonsertec',
+        'PASSWORD': 'UzuMymw@314159',
+        'HOST': '127.0.0.1',  # ou o nome do contêiner se você estiver usando um nome de contêiner no Docker
+        'PORT': '3306',
+
     }
 }
 
@@ -152,4 +157,3 @@ LOGIN_NOT_REQUIRED = (
 )
 
 
-CSRF_TRUSTED_ORIGINS = ['https://3b2b-187-63-120-70.ngrok-free.app']

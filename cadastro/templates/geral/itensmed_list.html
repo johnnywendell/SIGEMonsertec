@@ -45,7 +45,8 @@
            <div class="table-responsive">
             <table id="lista-database" class="table table-bordered table-striped lista-table">
               <thead>
-                <tr>                  
+                <tr> 
+                  <th>#ID</th>
                   <th>Código </th>
                   <th>Contrato</th>
                   <th>Disciplina</th>
@@ -61,7 +62,8 @@
                {% if all_itensmed %}
                {% for item in all_itensmed %}
                <tr class="clickable-row popup" href="{% url 'cadastro:editaritemmedview' item.id %}">
-                <td>{{item.item_ref}}</td>
+                <td>{{item.id}}</td>
+		<td>{{item.item_ref}}</td>
                 <td>{{item.contrato}}</td>
                 <td>{{item.disciplina}}</td>
                 <td>{{item.descricao}}</td>

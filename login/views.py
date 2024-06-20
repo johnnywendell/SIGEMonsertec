@@ -21,7 +21,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template import loader
 
-from core.views_mixins import SuperUserRequiredMixin
+from core.views_mixins import SuperUserRequiredMixin, StaffUserRequiredMixin
 
 from .forms import UserLoginForm, UserRegistrationForm, PasswordResetForm, SetPasswordForm, PerfilUsuarioForm
 from .models import Usuario
@@ -34,8 +34,8 @@ import operator
 from functools import reduce
 
 
-DEFAULT_PERMISSION_MODELS = ['empresa', 'itembm', 'contrato','area','solicitante','romaneio','aprovador',
-                             'relatorioarea','relatoriojato','apontamento']
+DEFAULT_PERMISSION_MODELS = ['usuario','empresa', 'itembm', 'contrato','area','solicitante','romaneio','aprovador',
+                             'relatorioarea','relatoriojato','apontamento','colaborador','projetocodigo']
                                
 
 CUSTOM_PERMISSIONS = ['configurar_nfe', 'emitir_notafiscal', 'cancelar_notafiscal', 'gerar_danfe', 'consultar_cadastro', 'inutilizar_notafiscal', 'consultar_notafiscal',
@@ -68,7 +68,7 @@ class UserFormView(View):
         return render(request, self.template_name, {'form': form})
 
 
-class UserRegistrationFormView(SuperUserRequiredMixin, SuccessMessageMixin, FormView):
+class UserRegistrationFormView(StaffUserRequiredMixin, SuccessMessageMixin, FormView):
     form_class = UserRegistrationForm
     template_name = 'registrar.html'
     success_url = reverse_lazy('login:usuariosview')
@@ -333,7 +333,7 @@ class SelecionarMinhaEmpresaView(FormView):
         return redirect(self.success_url)
 
 
-class UsuariosListView(SuperUserRequiredMixin, ListView):
+class UsuariosListView(StaffUserRequiredMixin, ListView):
     template_name = 'lista_users.html'
     model = User
     context_object_name = 'all_users'
@@ -350,7 +350,7 @@ class UsuariosListView(SuperUserRequiredMixin, ListView):
         return redirect(self.success_url)
 
 
-class UsuarioDetailView(SuperUserRequiredMixin, TemplateView):
+class UsuarioDetailView(StaffUserRequiredMixin, TemplateView):
     model = User
     template_name = 'detalhe_users.html'
 
@@ -370,7 +370,7 @@ class DeletarUsuarioView(SuperUserRequiredMixin, DeleteView):
     success_url = reverse_lazy('login:usuariosview')
 
 
-class EditarPermissoesUsuarioView(SuperUserRequiredMixin, TemplateView):
+class EditarPermissoesUsuarioView(StaffUserRequiredMixin, TemplateView):
     template_name = 'editar_permissoes_user.html'
 
     def get_context_data(self, **kwargs):

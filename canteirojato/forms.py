@@ -80,8 +80,8 @@ class MaterialForm(forms.ModelForm):
             'raio': _('raio'), 
             'largura': _('largura'), 
             'altura': _('altura'),
-            'comprimento': _('comprimento'),
-            'lados': _('lados'), 
+            'comprimento': _('comprimento/lados'),
+            'lados': _('Qtd.'), 
             'relatorio': _('Relatorio'), 
         }
     

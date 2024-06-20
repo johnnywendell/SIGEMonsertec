@@ -7,15 +7,6 @@
   
     <div class="title-header">
       <h2>Colaboradores</h2>
-      <form method="get" action="{% url 'efetivo:export_efetivo_xls' %}">
-        <label for="start_date">Data de Início:</label>
-        <input type="date" id="start_date" name="start_date" required>
-        <br>
-        <label for="end_date">Data de Fim:</label>
-        <input type="date" id="end_date" name="end_date" required>
-        <br>
-        <button type="submit">Exportar Efetivo</button>
-    </form>
     </div>
     
     {% include 'msg_sucesso.html' %}
