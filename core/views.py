@@ -4,10 +4,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F, Sum
 from efetivo.models import Apontamento, ApontamentoColaborador
 
+from .views_mixins import SessionTimeoutMixin
 from datetime import datetime,date
 import calendar
 
-class IndexView(TemplateView):
+class IndexView(SessionTimeoutMixin, TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):

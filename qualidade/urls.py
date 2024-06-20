@@ -34,10 +34,9 @@ urlpatterns = [
     path(r'relatorio/photojato/<int:pk>/',
         v.PhotoCreateViewJato.as_view(), name='photorelatoriojato'),
     path(r'relatorio/photo/deletearea/<int:pk>/',
-        v.delete_photoarea, name='photorelatorioareadelete'),
+        v.DeletePhotoArea.as_view(), name='photorelatorioareadelete'),
     path(r'relatorio/photo/deletejato/<int:pk>/',
-        v.delete_photojato, name='photorelatoriojatodelete'),
-        #path('romaneio/pdf/<int:pk>/', v.render_pdf_view, name='romaneio_pdf'), 
+        v.DeletePhotoJato.as_view(), name='photorelatoriojatodelete'),
 
     path('relatorio/pdf/<int:pk>/', v.render_pdf_view, name='render_pdf_view'),
     path('relatorio/pdfsimple/<int:pk>/', v.render_pdf_view_simple, name='render_pdf_view_simple'),

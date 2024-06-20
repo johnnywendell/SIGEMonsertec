@@ -255,24 +255,27 @@
 
                       {% endif %}
                       <br>
-                      {% for item in object.relatorio.all %}
-                      {% if item.photo %}
-                      <div class="col-sm-1">
-                        <div class="form-group">
-                          <div class="form-line text-center">
-                            <img src="{{ item.photo.url }}" alt="" class="img-thumbnail" width="150px">
-                            <hr>
-                            {% if tipo_pessoa == 'relatorioarea' %}
-                            <a href="{% url 'qualidade:photorelatorioareadelete' item.pk %}" class="btn btn-danger btn-sm" style="width: 50%;">delete</a>
-                            {% elif tipo_pessoa == 'relatoriojato' %}
-                            <a href="{% url 'qualidade:photorelatoriojatodelete' item.pk %}" class="btn btn-danger btn-sm" style="width: 50%;">delete</a>
-
-                            {% endif %}
+                      <div class="row">
+                        {% for item in object.relatorio.all %}
+                        {% if item.photo %}
+                          <!-- Gallery item -->
+                          <div class="col-xl-3 col-lg-3 col-md-3 mb-3" style="height: 300px;">
+                            <div class="bg-white rounded shadow-sm" style="max-height: 200px;"><img src="{{ item.photo.url }}" alt="" class="img-responsive" style="max-height: 200px; object-fit: cover; width: 100%;">
+                              <div class="p-4">
+                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                  {% if tipo_pessoa == 'relatorioarea' %}
+                                  <a href="{% url 'qualidade:photorelatorioareadelete' item.pk %}" class="badge badge-danger px-3 rounded-pill font-weight-normal">Delete</a>
+                                  {% elif tipo_pessoa == 'relatoriojato' %}
+                                  <a href="{% url 'qualidade:photorelatoriojatodelete' item.pk %}" class="badge badge-danger px-3 rounded-pill font-weight-normal">Delete</a>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
                           </div>
+                          <!-- End -->
+                        {% endif %}
+                        {% endfor %}
                         </div>
-                      </div>
-                      {% endif %}
-                      {% endfor %}
                       
                   </div>
                   </div>

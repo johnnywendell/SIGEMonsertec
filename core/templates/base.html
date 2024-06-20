@@ -65,6 +65,7 @@
                     <span style="padding-left:10px;"><i class="material-icons ">&#xE8B5;</i></span>
                     <span>{% now "H:i" %}</span>
                     <!-- #Main icone, data e horario -->
+                    <span>Tempo restante da sessão: <span id="countdown"> </span></span>
                 </div>
 
             </div>
@@ -304,6 +305,7 @@
                 </div>
                 <div class="version">
                     <b>Versão: </b> {{versao}}
+                    <span id="sessiontimeout">{{session_timeout}}</span>
                 </div>
             </div>
             <!-- #Footer -->
@@ -326,6 +328,27 @@
 
     <!-- Sige Js -->
     <script src="{% static 'js/admin.js' %}"></script>
+    <!-- session cookie -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+           let sessionTimeout = parseInt(document.getElementById('sessiontimeout').textContent.trim());
+           let countdownElement = document.getElementById('countdown');
+
+           function updateCountdown() {
+               let minutes = Math.floor(sessionTimeout / 60);
+               let seconds = sessionTimeout % 60;
+               countdownElement.textContent = `${minutes}m ${seconds}s`;
+
+               if (sessionTimeout > 0) {
+                   sessionTimeout--;
+                   setTimeout(updateCountdown, 1000);
+               } else {
+                   countdownElement.textContent = "Sessão expirada!";
+               }
+           }
+           updateCountdown();
+       });
+   </script>
     
     {% if messages %}
     {%for message in messages%}

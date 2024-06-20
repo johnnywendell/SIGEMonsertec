@@ -6,28 +6,28 @@ from django.views.generic.detail import DetailView
 
 from django.shortcuts import redirect
 
-from core.views_mixins import CheckPermissionMixin, FormValidationMessageMixin
+from core.views_mixins import CheckPermissionMixin, FormValidationMessageMixin, SessionTimeoutMixin
 
 
-class CustomView(CheckPermissionMixin, View):
+class CustomView(SessionTimeoutMixin, CheckPermissionMixin, View):
 
     def __init__(self, *args, **kwargs):
         super(CustomView, self).__init__(*args, **kwargs)
 
 
-class CustomTemplateView(CheckPermissionMixin, TemplateView):
+class CustomTemplateView(SessionTimeoutMixin, CheckPermissionMixin, TemplateView):
 
     def __init__(self, *args, **kwargs):
         super(CustomTemplateView, self).__init__(*args, **kwargs)
 
 
-class CustomDetailView(CheckPermissionMixin, DetailView):
+class CustomDetailView(SessionTimeoutMixin, CheckPermissionMixin, DetailView):
 
     def __init__(self, *args, **kwargs):
         super(CustomDetailView, self).__init__(*args, **kwargs)
 
 
-class CustomCreateView(CheckPermissionMixin, FormValidationMessageMixin, CreateView):
+class CustomCreateView(SessionTimeoutMixin, CheckPermissionMixin, FormValidationMessageMixin, CreateView):
 
     def __init__(self, *args, **kwargs):
         super(CustomCreateView, self).__init__(*args, **kwargs)
@@ -42,7 +42,7 @@ class CustomCreateView(CheckPermissionMixin, FormValidationMessageMixin, CreateV
         return self.form_invalid(form)
 
 
-class CustomListView(CheckPermissionMixin, ListView):
+class CustomListView(SessionTimeoutMixin, CheckPermissionMixin, ListView):
 
     def __init__(self, *args, **kwargs):
         super(CustomListView, self).__init__(*args, **kwargs)
@@ -60,7 +60,7 @@ class CustomListView(CheckPermissionMixin, ListView):
         return redirect(self.success_url)
 
 
-class CustomUpdateView(CheckPermissionMixin, FormValidationMessageMixin, UpdateView):
+class CustomUpdateView(SessionTimeoutMixin, CheckPermissionMixin, FormValidationMessageMixin, UpdateView):
 
     def __init__(self, *args, **kwargs):
         super(CustomUpdateView, self).__init__(*args, **kwargs)

@@ -103,7 +103,7 @@ class RelatorioAreaListView(DocumentoListView):
     model = RelatorioArea
     context_object_name = 'all_relatorios_area'
     success_url = reverse_lazy('qualidade:listarelatorioareaview')
-    permission_codename = 'view_relatorio_area'
+    permission_codename = 'view_relatorioarea'
 
     def view_context(self, context):
         context['title_complete'] = 'RELATÓRIOS (ÁREA)'
@@ -116,7 +116,7 @@ class RelatorioJatoListView(DocumentoListView):
     model = RelatorioJato
     context_object_name = 'all_relatorios_area'
     success_url = reverse_lazy('qualidade:listarelatoriojatoview')
-    permission_codename = 'view_relatorio_jato'
+    permission_codename = 'view_relatoriojato'
 
     def view_context(self, context):
         context['title_complete'] = 'RELATÓRIOS (CANTEIRO DE JATO)'
@@ -226,6 +226,7 @@ class PhotoCreateViewJato(CustomCreateView):
     form_class = PhotoForm
     success_url = reverse_lazy('qualidade:listarelatoriojatoview')
     success_message = "<b>Foto  %(id)s </b> adicionada com sucesso."
+    permission_codename = 'add_photo'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -242,6 +243,7 @@ class PhotoCreateViewArea(CustomCreateView):
     form_class = PhotoForm
     success_url = reverse_lazy('qualidade:listarelatorioareaview')
     success_message = "<b>Foto  %(id)s </b> adicionada com sucesso."
+    permission_codename = 'add_photo'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -254,17 +256,21 @@ class PhotoCreateViewArea(CustomCreateView):
         return super().form_valid(form)
 
 
-def delete_photoarea(request, pk):
-    photo = Photo.objects.get(pk=pk)
-    photo.delete()
-    return redirect('qualidade:listarelatorioareaview')
+class DeletePhotoArea(CustomView):
+    permission_codename = 'delete_photo'
+    def get(self, request, pk, *args, **kwargs):
+        photo = get_object_or_404(Photo, pk=pk)
+        photo.delete()
+        return redirect(reverse_lazy('qualidade:listarelatorioareaview'))
 
-def delete_photojato(request, pk):
-    photo = Photo.objects.get(pk=pk)
-    photo.delete()
-    return redirect('qualidade:listarelatoriojatoview')
+class DeletePhotoJato(CustomView):
+    permission_codename = 'delete_photo'
+    def get(self, request, pk, *args, **kwargs):
+        photo = get_object_or_404(Photo, pk=pk)
+        photo.delete()
+        return redirect(reverse_lazy('qualidade:listarelatoriojatoview'))
 
-
+############# PDF VIEWS ##############
 def render_pdf_view(request, pk):
     relatorio = get_object_or_404(Relatorio, pk=pk)
     template_path = 'rip.html'

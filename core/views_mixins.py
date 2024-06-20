@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
 
+import time
+from SingularCRM.settings import SESSION_COOKIE_AGE
 
 class StaffUserRequiredMixin(object):
 
@@ -84,3 +86,16 @@ class FormValidationMessageMixin(object):
 
     def form_invalid(self, form, **kwargs):
         return self.render_to_response(self.get_context_data(form=form, **kwargs))
+
+class SessionTimeoutMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Tempo de expiração da sessão
+        session_age = SESSION_COOKIE_AGE
+        last_activity = int(self.request.session.get('_session_init_timestamp', time.time()))
+        current_time = int(time.time())
+        session_timeout = session_age - (current_time - last_activity)
+        context['session_timeout'] = session_timeout
+        
+        return context

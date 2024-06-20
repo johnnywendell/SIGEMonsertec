@@ -35,9 +35,11 @@ from functools import reduce
 
 
 DEFAULT_PERMISSION_MODELS = ['usuario','empresa', 'itembm', 'contrato','area','solicitante','romaneio','aprovador',
-                             'relatorioarea','relatoriojato','apontamento','colaborador','projetocodigo']
-                               
+                             'relatorioarea','relatoriojato','apontamento','colaborador','projetocodigo',
+                             'photo','boletimmedicao']
 
+DEFAULT_PERMISSION_MODELS_STAFF = ['apontamento','colaborador']
+                               
 CUSTOM_PERMISSIONS = ['configurar_nfe', 'emitir_notafiscal', 'cancelar_notafiscal', 'gerar_danfe', 'consultar_cadastro', 'inutilizar_notafiscal', 'consultar_notafiscal',
                       'baixar_notafiscal', 'manifestacao_destinatario', 'faturar_pedidovenda', 'faturar_pedidocompra', 'acesso_fluxodecaixa', 'consultar_estoque', ]
 
@@ -380,8 +382,12 @@ class EditarPermissoesUsuarioView(StaffUserRequiredMixin, TemplateView):
         context['user'] = user
         condition = reduce(operator.or_, [Q(codename__icontains=s) for s in [
                            'add_', 'change_', 'view_', 'delete_']])
-        context['default_permissions'] = Permission.objects.filter(
-            condition, content_type__model__in=DEFAULT_PERMISSION_MODELS)
+        if self.request.user.is_superuser:
+            context['default_permissions'] = Permission.objects.filter(
+                condition, content_type__model__in=DEFAULT_PERMISSION_MODELS)
+        else:
+            context['default_permissions'] = Permission.objects.filter(
+                condition, content_type__model__in=DEFAULT_PERMISSION_MODELS_STAFF)
         context['custom_permissions'] = Permission.objects.filter(
             codename__in=CUSTOM_PERMISSIONS)
         return context

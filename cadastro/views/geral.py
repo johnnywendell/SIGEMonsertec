@@ -186,13 +186,13 @@ class AdicionarItemBmView(AdicionarOutrosBaseView):
     form_class = ItemBmForm
     model = ItemBm
     success_url = reverse_lazy('cadastro:additemmedview')
-    permission_codename = 'add_itemmed'
+    permission_codename = 'add_itembm'
 class ItemBmListView(CustomListView):
     model = ItemBm
     template_name = 'geral/itensmed_list.html'
     context_object_name = 'all_itensmed'
     success_url = reverse_lazy('cadastro:listaitensmedview')
-    permission_codename = 'view_itemmed'
+    permission_codename = 'view_itembm'
     def get_queryset(self):
         try:
             filtro = self.request.GET.get('item_filtro')
@@ -210,4 +210,4 @@ class EditarItemBmView(EditarOutrosBaseView):
     form_class = ItemBmForm
     model = ItemBm
     success_url = reverse_lazy('cadastro:listaitensmedview')
-    permission_codename = 'change_itemmed'
+    permission_codename = 'change_itembm'
