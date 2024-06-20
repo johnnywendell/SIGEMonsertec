@@ -15,10 +15,18 @@ urlpatterns = [
     # cadastro/empresa/editar/
     path(r'rdo/editar/<int:pk>/',
         v.EditarRDOView.as_view(), name='editarrdoview'),
-    #path('rdos/json/', v.json_fatores, name='json_fatores'),
-    #path('rdo/qrcode/<int:pk>/', v.render_pdf_view_tag, name='rdo_qrcode'),
-    #path('rdo/pdf/<int:pk>/', v.render_pdf_view, name='rdo_pdf'), 
+    
+    # BOLETIM DE MEDIÇÃO
+    path(r'boletimmedicao/adicionar/',
+        v.AdicionarBoletimMedicaoRDOView.as_view(), name='addbmview'),
+    path(r'boletimmedicao/listabms/',
+        v.BoletimMedicaoListView.as_view(), name='listabmview'),
+    path(r'boletimmedicao/editar/<int:pk>/',
+        v.EditarBoletimMedicaoView.as_view(), name='editarbmview'),
+    path(r'boletimmedicao/atualizar-materiais/', v.atualizar_romaneios_selecionados, name='atualizar_romaneios'),
+    path(r'boletimmedicao/pdf/<int:pk>/', v.render_pdf_view, name='render_pdf_view'),
 
+    # CÓDIGO DE PROJETOS
     path(r'projeto/adicionar/',
         v.AdicionarProjetoView.as_view(), name='addprojetoview'),
     # cadastro/empresa/listaempresas

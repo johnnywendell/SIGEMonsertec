@@ -69,7 +69,6 @@
         <img src="{{ graph_img }}" width="100%" alt="Gráfico de Linha">
     </div>
     </div>
-
   </div>
 </div>
 
@@ -111,7 +110,7 @@
 </div>
 
 
-{% if perms.efetivo.view_apontamento %}
+{% if perms.efetivo.view_colaborador %}
 <div class="row clearfix">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="card">
@@ -155,6 +154,75 @@
     </div>
   </div>
 </div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <div class="card inicial-card">
+   <div class="header">
+    <h2><i class="material-icons">&#xE8DF;</i>Faltas de Colaboradores(Hoje)</h2>
+  </div>
+  <div class="body">
+    {% if colaboradores_falta  %}
+    <div class="table-responsive">
+      <table class="table table-bordered lista-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Matrícula</th>
+            <th>Função</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for colaborador in colaboradores_falta  %}
+          <tr>
+            <td>{{ colaborador.nome }}</td>
+            <td>{{ colaborador.matricula }}</td>
+            <td>{{ colaborador.funcao }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% else %}
+    <p>Sem faltas hoje.</p>
+{% endif %}
+  </div>
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <div class="card inicial-card">
+   <div class="header">
+    <h2><i class="material-icons">&#xE8DF;</i>Colaboradores não apontados (Hoje)</h2>
+  </div>
+  <div class="body">
+    {% if colaboradores_nao_apontados %}
+    <div class="table-responsive">
+      <table class="table table-bordered lista-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Matrícula</th>
+            <th>Função</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for colaborador in colaboradores_nao_apontados %}
+          <tr>
+            <td>{{ colaborador.nome }}</td>
+            <td>{{ colaborador.matricula }}</td>
+            <td>{{ colaborador.funcao }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% else %}
+    <p>Todos os colaboradores ativos foram apontados hoje.</p>
+{% endif %}
+  </div>
+</div>
+</div>
+
+
+
 {% endif %}
 
 </div>

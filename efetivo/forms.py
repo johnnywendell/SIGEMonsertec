@@ -29,18 +29,20 @@ class ApontamentoForm(forms.ModelForm):
 
     class Meta:
         model = Apontamento
-        fields = ('data', 'area', 'projeto_cod', 'disciplina')
+        fields = ('data', 'area', 'projeto_cod', 'disciplina','obs')
         widgets = {
             'data': forms.DateInput(attrs={'class': 'form-control datepicker', 'autocomplete': 'off'}),
             'area': forms.Select(attrs={'class': 'form-control'}),
             'projeto_cod': forms.Select(attrs={'class': 'form-control'}),
             'disciplina': forms.Select(attrs={'class': 'form-control'}),
+            'obs': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'data': _('Data'),
             'area': _('Área'),
             'projeto_cod': _('Código do Projeto'),
             'disciplina': _('Disciplina'),
+            'obs': _('Observações'),
         }
 
 

@@ -1,6 +1,7 @@
 from django.db import models
 from cadastro.models.geral import Area, Solicitante, ItemBm
 from cadastro.models.base import TimeStampedModel
+from planejamento.models import BoletimMedicao
 
 class Romaneio(TimeStampedModel):
     entrada = models.DateField(verbose_name='Data de Entrada')
@@ -10,6 +11,7 @@ class Romaneio(TimeStampedModel):
     area = models.ForeignKey(Area, on_delete=models.SET_NULL,blank=True, null=True)
     solicitante = models.ForeignKey(Solicitante, on_delete=models.SET_NULL, blank=True, null=True)
     concluido =  models.BooleanField(default=False)
+    bm = models.ForeignKey(BoletimMedicao, on_delete=models.SET_NULL, related_name='medicao_jato', blank=True, null=True)
     class Meta:
         ordering = ('pk',)
 

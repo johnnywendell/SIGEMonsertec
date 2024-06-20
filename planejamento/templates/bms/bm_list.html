@@ -1,0 +1,42 @@
+{% load humanize %}
+<div class="table-responsive">
+  <table id="lista-database" class="table table-bordered table-striped lista-table">
+    <thead>
+      <tr>                  
+        <th>Nº BM</th>
+        <th>Data</th>
+        <th>Unidade</th>
+        <th>Aprovador</th>
+        <th>DMS</th>
+        <th>BMS</th>
+        <th>Valor</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+     {% if all_bms %}
+     {% for bm in all_bms %}
+     <tr class="clickable-row" data-href="{% url 'planejamento:editarbmview' bm.id %}">
+      <td>{{bm}}</td>
+      <td>{{bm.get_inicio}}</td>
+      <td>{{bm.unidade}}</td>
+      <td>{{bm.d_aprovador}}</td>
+      <td>{{bm.d_numero}}</td>
+      <td>{{bm.b_numero}}</td>
+      <td>R$ {{ bm.valor|intcomma }}</td>
+      <td class="lista-remove">
+        <input type="checkbox" name="{{bm.id}}" id="remover-entrada-{{bm.id}}"/>
+        <label class="remove-entry-label" for="remover-entrada-{{bm.id}}"></label>
+      </td>
+    </tr>
+    {% endfor %}
+    {%else%}
+    {%endif%}
+  </tbody>
+</table>
+</div>
+
+<script>
+  setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+</script>

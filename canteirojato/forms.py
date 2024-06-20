@@ -12,7 +12,7 @@ class RomaneioForm(forms.ModelForm):
         super(RomaneioForm, self).__init__(*args, **kwargs)
     class Meta:
         model = Romaneio
-        fields = ('entrada','nf','documento','obs','area','solicitante','concluido')
+        fields = ('entrada','nf','documento','obs','area','solicitante','concluido','bm')
         widgets = {
             'concluido': forms.CheckboxInput(attrs={'class': 'exclude-from-hide'}),
             'entrada': forms.DateInput(attrs={'class': 'form-control datepicker', 'autocomplete':'off'}),
@@ -21,6 +21,7 @@ class RomaneioForm(forms.ModelForm):
             'nf': forms.TextInput(attrs={'class': 'form-control'}),
             'documento': forms.TextInput(attrs={'class': 'form-control'}),
             'obs': forms.TextInput(attrs={'class': 'form-control'}),
+            'bm': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'concluido': _('Concluido'), 
@@ -30,6 +31,7 @@ class RomaneioForm(forms.ModelForm):
             'nf': _('Nota Fiscal'),
             'documento': _('DOC/REC/REF'),
             'obs': _('Observações'),
+            'bm': _('Boletim de medição'),
         }
    
     

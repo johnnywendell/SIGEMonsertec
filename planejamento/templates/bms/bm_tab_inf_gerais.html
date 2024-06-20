@@ -1,0 +1,169 @@
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.unidade.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.unidade.errors %}<label class="error">{% for error in form.unidade.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.unidade}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.periodo_inicio.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.periodo_inicio.errors %}<label class="error">{% for error in form.periodo_inicio.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.periodo_inicio}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.periodo_fim.label}}</label>
+      {% if form.periodo_fim.errors %}<label class="error">{% for error in form.periodo_fim.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.periodo_fim}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.status_pgt.label}}</label>
+      {% if form.status_pgt.errors %}<label class="error">{% for error in form.status_pgt.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.status_pgt}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.status_med.label}}</label>
+      {% if form.status_med.errors %}<label class="error">{% for error in form.status_med.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.status_med}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.rev.label}}</label>
+      {% if form.rev.errors %}<label class="error">{% for error in form.rev.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.rev}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.d_numero.label}}</label>
+      {% if form.d_numero.errors %}<label class="error">{% for error in form.d_numero.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.d_numero}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.d_data.label}}</label>
+      {% if form.d_data.errors %}<label class="error">{% for error in form.d_data.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.d_data}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.d_aprovador.label}}</label>
+      {% if form.d_aprovador.errors %}<label class="error">{% for error in form.d_aprovador.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.d_aprovador}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.d_status.label}}</label>
+      {% if form.d_status.errors %}<label class="error">{% for error in form.d_status.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.d_status}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.b_numero.label}}</label>
+      {% if form.b_numero.errors %}<label class="error">{% for error in form.b_numero.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.b_numero}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.b_data.label}}</label>
+      {% if form.b_data.errors %}<label class="error">{% for error in form.b_data.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.b_data}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.b_aprovador.label}}</label>
+      {% if form.b_aprovador.errors %}<label class="error">{% for error in form.b_aprovador.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.b_aprovador}}
+    </div>
+  </div>
+</div>
+
+
+<div class="col-sm-3">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.b_status.label}}</label>
+      {% if form.b_status.errors %}<label class="error">{% for error in form.b_status.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.b_status}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.descricao.label}}</label>
+      {% if form.descricao.errors %}<label class="error">{% for error in form.descricao.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.descricao}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.follow_up.label}}</label>
+      {% if form.follow_up.errors %}<label class="error">{% for error in form.follow_up.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.follow_up}}
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-6">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.valor.label}}</label>
+      {% if form.valor.errors %}<label class="error">{% for error in form.valor.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.valor}}
+    </div>
+  </div>
+</div>
+
+
+

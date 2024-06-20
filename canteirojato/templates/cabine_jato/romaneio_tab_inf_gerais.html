@@ -49,12 +49,21 @@
   </div>
 </div>
 
-<div class="col-sm-6">
+<div class="col-sm-4">
   <div class="form-group">
     <div class="form-line">
       <label>{{form.obs.label}}</label>
       {% if form.obs.errors %}<label class="error">{% for error in form.obs.errors %}{{error}}{% endfor %}</label>{% endif %}
       {{form.obs}}
+    </div>
+  </div>
+</div>
+<div class="col-sm-2">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.bm.label}}</label>
+      {% if form.bm.errors %}<label class="error">{% for error in form.bm.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.bm}}
     </div>
   </div>
 </div>

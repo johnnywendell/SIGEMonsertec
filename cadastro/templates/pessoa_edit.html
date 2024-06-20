@@ -6,8 +6,8 @@
 
 {% if tipo_pessoa == 'relatoriojato' %} 
 {% include 'modal_materiais.html' %}
-{% elif tipo_pessoa == 'rdo' %} 
-{% include 'modal_rdo.html' %}
+{% elif tipo_pessoa == 'boletimmedicao' %} 
+{% include 'modal_bm.html' %}
 {% endif %}
 
 
@@ -31,6 +31,8 @@
               <a class="btn btn-info" href="{% url 'qualidade:render_pdf_view_simple' object.pk %}"style="margin: 6px;">PDF SIMPLIFICADO</a>  
             {% elif tipo_pessoa == 'apontamento' %} 
               <a id="gerar_copia_apontamento" href="{% url 'efetivo:copiarapontamento' object.id %}" class="btn btn-primary">GERAR CÓPIA APONTAMENTO</a>
+            {% elif tipo_pessoa == 'boletimmedicao' %} 
+            <a id="gerar_bm" href="{% url 'planejamento:render_pdf_view' object.pk %}" class="btn btn-primary">GERAR BOLETIM</a>
             {% else %}
             {% endif %}
             
@@ -70,6 +72,10 @@
                     {% elif tipo_pessoa == 'rdo' %}
                 
                     {% include 'rdos/rdo_tab_inf_gerais.html' %}
+
+                    {% elif tipo_pessoa == 'boletimmedicao' %}
+                
+                    {% include 'bms/bm_tab_inf_gerais.html' %}
 
                     {% elif tipo_pessoa == 'apontamento' %}
       
@@ -288,11 +294,13 @@
                   {% endif %}
 
                   <!-- #Tab Relatorio -->
-                  {% if tipo_pessoa == 'rdo'%}
+
+                  <!-- #Tab Planejamento -->
+                  {% if tipo_pessoa == 'rdo' or tipo_pessoa == 'boletimmedicao'%}
                   <div role="tabpanel" class="tab-pane formset-tab" id="tab_itemmedicao">
                 
 
-                  {% include 'rdos/rdo_itens.html' %}
+                    {% include 'bms/bm_itens.html' %}
 
                   </div>
                   {% endif %}
@@ -338,6 +346,10 @@
 {% elif tipo_pessoa == 'rdo' %}
 
 {% include 'rdos/rdo_blockjs.html' %}
+
+{% elif tipo_pessoa == 'boletimmedicao' %}
+
+{% include 'bms/bm_blockjs.html' %}
 
 {% elif tipo_pessoa == 'apontamento' %}
 

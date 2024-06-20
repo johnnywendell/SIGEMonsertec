@@ -1,5 +1,5 @@
 from django.db import models
-from cadastro.models.geral import Contrato, Area, Solicitante, ItemBm
+from cadastro.models.geral import Contrato, Area, Solicitante, ItemBm, Aprovador
 from cadastro.models.base import TimeStampedModel
 from django.db.models.signals import pre_save, post_save
 from django.utils import timezone
@@ -29,6 +29,50 @@ CLIMA = (
     ('NUBLADO','NUBLADO'),
     ('CHUVOSO','CHUVOSO'),
 )
+
+BM_STATUS = (  ('APROVADO','APROVADO'),
+                ('AGUARDANDO OM','AGUARDANDO OM'),
+                ('EM LANÇAMENTO','EM LANÇAMENTO'),
+                ('NÃO APROVADO','NÃO APROVADO'),
+                ('REPROVADO','REPROVADO'),
+) 
+PGT_STATUS = (  ('EMITIR NF','EMITIR NF'),
+                ('ABAT REAJUSTE','ABAT REAJUSTE'),
+) 
+MED_STATUS = (  ('NORMAL','NORMAL'),
+                ('ANTECIPAÇÃO','ANTECIPAÇÃO'),
+                ('PROJEÇÃO','PROJEÇÃO'),
+                ('PREST DE CONTAS','PRESTAÇÃO DE CONTAS'),
+) 
+class BoletimMedicao(TimeStampedModel):
+    unidade = models.ForeignKey(Area, on_delete=models.CASCADE)
+    periodo_inicio = models.DateField(verbose_name='Período início')
+    periodo_fim = models.DateField(verbose_name='Período fim')
+    status_pgt = models.CharField(max_length=20,choices=PGT_STATUS, blank=True, null=True)
+    status_med = models.CharField(max_length=20,choices=MED_STATUS, blank=True, null=True)
+
+    d_numero = models.CharField('DMS',max_length=40, blank=True, null=True)
+    d_data = models.DateField(verbose_name='DMS data', blank=True, null=True)
+    d_aprovador = models.ForeignKey(Aprovador, on_delete=models.SET_NULL, blank=True, null=True,related_name='aprovadordms')
+    d_status = models.CharField('Status DMS',max_length=20,choices=BM_STATUS, blank=True, null=True)
+    b_numero = models.CharField('BMS',max_length=40, blank=True, null=True)
+    b_data = models.DateField(verbose_name='BMS data ', blank=True, null=True)
+    b_aprovador = models.ForeignKey(Aprovador, on_delete=models.SET_NULL, blank=True, null=True,related_name='aprovadorbms')
+    b_status = models.CharField('Status BMS',max_length=20,choices=BM_STATUS, blank=True, null=True)
+    
+    descricao = models.CharField('Descricao do serviço',max_length=120)
+    #frs = models.ForeignKey(FRS, on_delete=models.CASCADE, blank=True, null=True, related_name='frs')
+    valor = models.DecimalField('Valor', max_digits=10, decimal_places=3, blank=True, null=True)
+    follow_up = models.TextField('Obs/followup', blank=True, null=True)
+    rev = models.IntegerField('Revisão',default=0, blank=True, null=True)
+    class Meta:
+        ordering = ('pk',)
+    def __str__(self):
+        return 'BM Nº{}'.format(str(self.pk).zfill(5))
+    def get_inicio(self):
+        return self.periodo_inicio.strftime('%d/%m/%Y')
+    def get_fim(self):
+        return self.periodo_fim.strftime('%d/%m/%Y')
 
 class PlanejamentoModel(TimeStampedModel):
     data = models.DateField(verbose_name='Período')

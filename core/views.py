@@ -1,8 +1,8 @@
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import F, Sum
-from efetivo.models import Apontamento, ApontamentoColaborador
+from django.db.models import F, Sum, Count, Q
+from efetivo.models import Apontamento, ApontamentoColaborador, Colaborador
 
 from .views_mixins import SessionTimeoutMixin
 from datetime import datetime,date
@@ -45,6 +45,20 @@ class IndexView(SessionTimeoutMixin, TemplateView):
             'colaboradores_isolamento': 0 if not colaboradores_isolamento else colaboradores_isolamento,
             'colaboradores_pintura': 0 if not colaboradores_pintura else colaboradores_pintura,
         }
+        colaboradores_nao_apontados = Colaborador.objects.filter(
+            ativo='1'  # Filtra apenas colaboradores ativos
+        ).exclude(
+            # Exclui colaboradores que foram apontados hoje
+            Q(apontamentocolaborador__apontamento__data=data_atual)
+        ).annotate(
+            total_apontamentos=Count('apontamentocolaborador')
+        )
+        colaboradores_falta = Colaborador.objects.filter(
+            apontamentocolaborador__status='1',  # Filtra colaboradores com status '1' (falta)
+            apontamentocolaborador__apontamento__data=data_atual
+        ).distinct()
+        context['colaboradores_falta'] = colaboradores_falta
+        context['colaboradores_nao_apontados'] = colaboradores_nao_apontados
 
         return context
 

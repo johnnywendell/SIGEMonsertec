@@ -39,6 +39,16 @@
   </div>
 </div>
 
+<div class="col-sm-12">
+  <div class="form-group">
+    <div class="form-line">
+      <label>{{form.obs.label}}</label><strong style="color:red;"> *</strong>
+      {% if form.obs.errors %}<label class="error">{% for error in form.obs.errors %}{{error}}{% endfor %}</label>{% endif %}
+      {{form.obs}}
+    </div>
+  </div>
+</div>
+
 
 
 <div id="apontamento" class="formset" style="background-color: rgba(240, 240, 245, 0.988);">

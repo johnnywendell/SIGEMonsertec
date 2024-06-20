@@ -1,0 +1,30 @@
+<a type="button" class="btn btn-info" data-toggle="modal" data-target=".bd-example-modal-lg"style="margin: 6px;"><b>+ </b> ITENS - ROMANEIOS</a>
+
+<div class="table-responsive">
+    <table id="lista-database" class="table table-bordered table-striped lista-table">
+      <thead>
+        <tr>                  
+          <th>Nº Romaneio</th>
+          <th>Data</th>
+          <th>Area</th>
+          <th>Solicitante</th>
+          <th>Documento</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        {% if romaneios_da_medicao %}
+       {% for romaneio in romaneios_da_medicao %}
+       <tr class="clickable-row" data-href="{% url 'canteirojato:editarromaneioview' romaneio.id %}">
+        <td>{{ romaneio }}</td>
+        <td>{{ romaneio.get_entrada }}</td>
+        <td>{{ romaneio.area }}</td>
+        <td>{{ romaneio.solicitante }}</td>
+        <td>{{ romaneio.documento }}</td>
+      </tr>
+      {% endfor %}
+      {%endif%}
+    </tbody>
+  </table>
+
+
