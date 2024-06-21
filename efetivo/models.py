@@ -39,7 +39,7 @@ class Apontamento(TimeStampedModel):
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
     projeto_cod = models.ForeignKey(ProjetoCodigo, on_delete=models.CASCADE, verbose_name='Cód. Projetos')
     disciplina = models.CharField(max_length=20, choices=DISCIP)
-    obs = models.CharField(max_length=255)
+    obs = models.CharField(max_length=255,null=True,blank=True)
 
     class Meta:
         ordering = ('pk',)
